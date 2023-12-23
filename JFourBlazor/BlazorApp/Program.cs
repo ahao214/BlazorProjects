@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args).Inject();
 
-builder.Services.AddBootstrapBlazor();
+
 // Add services to the container.
-builder.Services.AddRazorPages().AddInjectBase();
+builder.Services.AddControllers().AddInject();
+builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddBootstrapBlazor();
 
 #region Freesql
 
@@ -49,7 +51,8 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-app.UseInjectBase();
+app.UseInject();
+app.MapDefaultControllerRoute();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
