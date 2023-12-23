@@ -3,5 +3,15 @@
 <PageTitle>Home</PageTitle>
 
 <h1>Hello, world!</h1>
+<h2>@Hello</h2>
 
-Welcome to your new app.
+
+<Button Text="Click me" OnClick="ClickMe"></Button>
+
+@code{
+    private string Hello = "hello world";
+    private void ClickMe()
+    {
+        Hello = "hello Blzaor";
+    }
+}

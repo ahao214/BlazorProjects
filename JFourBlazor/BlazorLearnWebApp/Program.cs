@@ -3,6 +3,11 @@ using FreeSql;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+
+builder.Services.AddBootstrapBlazor();
+
 IFreeSql fsql = new FreeSql.FreeSqlBuilder()
     .UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=document.db")
     .UseAutoSyncStructure(true)
