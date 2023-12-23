@@ -1,4 +1,5 @@
 using BlazorApp.Data;
+using BlazorApp.Entity;
 using FreeSql;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
@@ -20,7 +21,14 @@ IFreeSql fsql = new FreeSql.FreeSqlBuilder()
         .UseAutoSyncStructure(true) //自动同步实体结构到数据库，FreeSql不会扫描程序集，只有CRUD时才会生成表。
         .Build();
 
+// 创建表的时候，将Entity去掉
+fsql.Aop.ConfigEntity += (sender, e) =>
+{
+    e.ModifyResult.Name = e.EntityType.Name.Replace("Entity", "");
+};
+
 BaseEntity.Initialization(fsql, () => null);
+UserEntity.Select.ToList();
 
 #endregion
 
