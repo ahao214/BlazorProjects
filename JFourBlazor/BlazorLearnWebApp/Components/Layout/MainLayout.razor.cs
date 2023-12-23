@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Components;
 
 namespace BlazorLearnWebApp.Components.Layout
 {
-    public partial class MainLayout
+    public partial class MainLayout<TItem> where TItem : class, new()
     {
 
         private bool IsOpen { get; set; }
