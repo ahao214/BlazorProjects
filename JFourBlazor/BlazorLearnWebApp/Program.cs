@@ -1,4 +1,6 @@
 using BlazorLearnWebApp.Components;
+using BlazorLearnWebApp.Service;
+using BootstrapBlazor.Components;
 using FreeSql;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -7,6 +9,8 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddBootstrapBlazor();
+
+
 
 IFreeSql fsql = new FreeSql.FreeSqlBuilder()
     .UseConnectionString(FreeSql.DataType.Sqlite, "Data Source=document.db")
@@ -18,6 +22,9 @@ BaseEntity.Initialization(fsql, null);
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
+
+builder.Services.AddScoped(typeof(IDataService<>), typeof(FreesqlDataService<>));
+
 
 var app = builder.Build();
 
