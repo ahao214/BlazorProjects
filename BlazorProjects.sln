@@ -9,9 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BazingaZexus", "BazingaZexu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NiuNan", "NiuNan", "{A8ECE244-F395-4984-9FA3-419370880467}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "JFourBlazor\BlazorApp\BlazorApp.csproj", "{755E5E36-69B6-4388-ABA2-90CEB1295D9E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorLearnWebApp", "JFourBlazor\BlazorLearnWebApp\BlazorLearnWebApp.csproj", "{DDDB059A-F1BB-431B-974A-A69BB44CF59A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorLearnWebApp", "JFourBlazor\BlazorLearnWebApp\BlazorLearnWebApp.csproj", "{DDDB059A-F1BB-431B-974A-A69BB44CF59A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{755E5E36-69B6-4388-ABA2-90CEB1295D9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{755E5E36-69B6-4388-ABA2-90CEB1295D9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{755E5E36-69B6-4388-ABA2-90CEB1295D9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{755E5E36-69B6-4388-ABA2-90CEB1295D9E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -32,7 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{755E5E36-69B6-4388-ABA2-90CEB1295D9E} = {E4DDF1CF-9873-469C-98BA-09818E690CA6}
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A} = {E4DDF1CF-9873-469C-98BA-09818E690CA6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
