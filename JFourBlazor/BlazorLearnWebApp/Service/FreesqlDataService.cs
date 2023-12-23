@@ -4,7 +4,7 @@ using FreeSql;
 
 namespace BlazorLearnWebApp.Service
 {
-    public class FreesqlDataService<TModel> : DataServiceBase<TModel> where TModel : class,new()
+    public class FreesqlDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
     {
         private readonly IFreeSql _db = BaseEntity.Orm;
 
@@ -64,10 +64,10 @@ namespace BlazorLearnWebApp.Service
                 IsAdvanceSearch = option.AdvanceSearches.Any(),
                 IsSearch = option.Searches.Any() || option.CustomerSearches.Any()
             };
-            return Task .FromResult(res);
+            return Task.FromResult(res);
 
         }
 
     }
-    
+
 }
