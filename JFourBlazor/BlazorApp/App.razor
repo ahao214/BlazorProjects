@@ -4,7 +4,8 @@
     <Found Context="routeData">
         <AuthorizeRouteView RouteData="@routeData" DefaultLayout="@typeof(MainLayout)" >
             <NotAuthorized>
-                你没有权限访问此页面
+                @* 你没有权限访问此页面 *@
+                <RedirectToLogin></RedirectToLogin>
             </NotAuthorized>
         </AuthorizeRouteView>
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />

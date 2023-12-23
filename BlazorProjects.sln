@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BazingaZexus", "BazingaZexu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NiuNan", "NiuNan", "{A8ECE244-F395-4984-9FA3-419370880467}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorApp", "JFourBlazor\BlazorApp\BlazorApp.csproj", "{755E5E36-69B6-4388-ABA2-90CEB1295D9E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorApp", "JFourBlazor\BlazorApp\BlazorApp.csproj", "{755E5E36-69B6-4388-ABA2-90CEB1295D9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
