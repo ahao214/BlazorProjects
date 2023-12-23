@@ -4,11 +4,12 @@ using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args).Inject();
 
+builder.Services.AddBootstrapBlazor();
 // Add services to the container.
 builder.Services.AddRazorPages().AddInjectBase();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddBootstrapBlazor();
+
 
 var app = builder.Build();
 
