@@ -1,7 +1,8 @@
 using BlazorLearnWebApp.Components;
 using BlazorLearnWebApp.Service;
-using BootstrapBlazor.Components;
+using BlazorLearnWebApp.Components;
 using FreeSql;
+using BootstrapBlazor.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -24,7 +25,6 @@ builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
 builder.Services.AddScoped(typeof(IDataService<>), typeof(FreesqlDataService<>));
-
 
 var app = builder.Build();
 
