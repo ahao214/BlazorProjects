@@ -21,6 +21,12 @@ namespace BlazorLearnWebApp.Entity
         /// 用户昵称
         /// </summary>
         public string? NickName { get; set; }
-        
+
+
+        [Description("角色ID")]
+        /// <summary>
+        /// 角色ID
+        /// </summary>
+        public int RoleId { get; set; }
     }
 }
