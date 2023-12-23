@@ -61,8 +61,8 @@ namespace BlazorLearnWebApp.Service
                 Items = Items,
                 IsSorted = option.SortOrder != SortOrder.Unset,
                 IsFiltered = option.Filters.Any(),
-                IsAdvanceSearch = option.AdvanceSearchs.Any(),
-                IsSearch = option.Searchs.Any() || option.CustomerSearches.Any()
+                IsAdvanceSearch = option.AdvanceSearches.Any(),
+                IsSearch = option.Searches.Any() || option.CustomerSearches.Any()
             };
             return Task .FromResult(res);
 
