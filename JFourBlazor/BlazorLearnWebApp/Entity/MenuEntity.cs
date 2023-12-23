@@ -1,34 +1,44 @@
 ﻿using FreeSql;
+using FreeSql.DataAnnotations;
 using System.ComponentModel;
 
 namespace BlazorLearnWebApp.Entity
 {
-    [Description("菜单信息表")]
+    [Description("菜单表")]
     public class MenuEntity:BaseEntity<MenuEntity,int>
     {
-        [Description("菜单名称")]
         /// <summary>
-        /// 菜单名称
+        /// 菜单名
         /// </summary>
+        [Description("菜单名")]
         public string? MenuName { get; set; }
 
-        [Description("URL链接")]
         /// <summary>
-        /// URL链接
+        /// URL
         /// </summary>
+        [Description("URL")]
         public string? Url { get; set;}
 
-        [Description("菜单图标")]
         /// <summary>
-        /// 菜单图标
+        /// 图标
         /// </summary>
+        [Description("图标")]
         public string? Icon {  get; set;}
 
-        [Description("父级菜单ID")]
         /// <summary>
         /// 父级菜单ID
         /// </summary>
+        [Description("父级菜单ID")]
         public int ParentId { get; set;}
+
+        [Navigate(nameof(ParentId))]
+        public MenuEntity? Parent { get; set;}
+
+        [Navigate(nameof(ParentId))]
+        public List <MenuEntity>? Children { get; set; }
+
+        [Navigate(ManyToMany =typeof(RoleMenuEntity))]
+        public List <RoleEntity>? Roles { get; set;}
 
     }
 }
