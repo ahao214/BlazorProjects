@@ -1,0 +1,19 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34330.188
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "JSBlazor", "JSBlazor", "{E4DDF1CF-9873-469C-98BA-09818E690CA6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BazingaZexus", "BazingaZexus", "{E363151B-C41E-4622-9905-4D31F3FBAAD1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NiuNan", "NiuNan", "{A8ECE244-F395-4984-9FA3-419370880467}"
+EndProject
+Global
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {36A31882-568E-4CDB-9027-2E1A7A525B86}
+	EndGlobalSection
+EndGlobal
