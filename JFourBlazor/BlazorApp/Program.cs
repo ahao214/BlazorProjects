@@ -30,7 +30,19 @@ IFreeSql fsql = new FreeSql.FreeSqlBuilder()
 //};
 
 BaseEntity.Initialization(fsql, () => null);
-UserEntity.Select.ToList();
+//UserEntity.Select.ToList();
+
+if(UserEntity.Select .Count <=0)
+{
+    var admin = new UserEntity()
+    {
+        UserName = "admin",
+        Password = "admin"
+    };
+    admin.Save();
+}
+
+
 
 #endregion
 
