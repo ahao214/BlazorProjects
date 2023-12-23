@@ -1,13 +1,16 @@
 ﻿@page "/Login"
+@using BlazorApp.Data
 @layout LoginLayout
 
 
-<BootstrapInput DisplayText="用户名" TValue="string"></BootstrapInput>
-<BootstrapPassword DisplayText="密码"></BootstrapPassword>
+<BootstrapInput DisplayText="用户名" @bind-Value="@LoginVo.UserName" ShowLabel="true"></BootstrapInput>
+<BootstrapPassword DisplayText="密码" @bind-Value="LoginVo.Password" ShowLabel="true"></BootstrapPassword>
 
 <Button>登录</Button>
 
 
 @code {
+    public LoginVo LoginVo { get; set; } = new LoginVo();
+
 
 }
