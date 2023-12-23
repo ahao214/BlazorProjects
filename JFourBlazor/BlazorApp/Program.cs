@@ -35,7 +35,7 @@ IFreeSql fsql = new FreeSql.FreeSqlBuilder()
 BaseEntity.Initialization(fsql, () => null);
 //UserEntity.Select.ToList();
 
-if(UserEntity.Select .Count <=0)
+if(UserEntity.Select.Count() <=0)
 {
     var admin = new UserEntity()
     {

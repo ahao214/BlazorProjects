@@ -1,4 +1,6 @@
 ﻿@page "/Login"
+@page "/ajax"
+
 
 @using BlazorApp.Data
 @layout LoginLayout
@@ -17,13 +19,15 @@
 @code {
     public LoginVo LoginVo { get; set; } = new LoginVo();
 
-    private void DoLogin()
+    private async void DoLogin()
     {
-        AjaxService.GetMessage(new AjaxOption(){
-            Data = LoginVo,
-            Url="/api/user/login"
-        });
+        var option = new AjaxOption
+            {
+                Url = "/api/user/login",
+                Data = LoginVo
+            };
 
+        var result = await AjaxService.InvokeAsync(option);
     }
 
 }
