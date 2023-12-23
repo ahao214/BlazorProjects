@@ -2,15 +2,26 @@
 @using BlazorApp.Data
 @layout LoginLayout
 
+@inject AjaxService AjaxService
+
+<Ajax></Ajax>
 
 <BootstrapInput DisplayText="用户名" @bind-Value="@LoginVo.UserName" ShowLabel="true"></BootstrapInput>
 <BootstrapPassword DisplayText="密码" @bind-Value="LoginVo.Password" ShowLabel="true"></BootstrapPassword>
 
-<Button>登录</Button>
+<Button OnClick="DoLogin">登录</Button>
 
 
 @code {
     public LoginVo LoginVo { get; set; } = new LoginVo();
 
+    public void DoLogin()
+    {
+        AjaxService.GetMessage(new AjaxOption(){
+            Data = LoginVo,
+            Url="/api/login"
+        });
+
+    }
 
 }
