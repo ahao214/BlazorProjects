@@ -22,10 +22,10 @@ IFreeSql fsql = new FreeSql.FreeSqlBuilder()
         .Build();
 
 // 创建表的时候，将Entity去掉
-fsql.Aop.ConfigEntity += (sender, e) =>
-{
-    e.ModifyResult.Name = e.EntityType.Name.Replace("Entity", "");
-};
+//fsql.Aop.ConfigEntity += (sender, e) =>
+//{
+//    e.ModifyResult.Name = e.EntityType.Name.Replace("Entity", "");
+//};
 
 BaseEntity.Initialization(fsql, () => null);
 UserEntity.Select.ToList();

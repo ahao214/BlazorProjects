@@ -1,9 +1,12 @@
 ﻿using FreeSql;
+using FreeSql.DataAnnotations;
 using System.ComponentModel;
+
 
 namespace BlazorApp.Entity
 {
     [Description("用户信息表")]
+    [Table(Name = "User")]
     public class UserEntity : BaseEntity<UserEntity, int>
     {
         [Description("用户名")]
