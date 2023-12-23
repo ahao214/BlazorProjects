@@ -1,10 +1,13 @@
 using BlazorApp.Data;
 using BlazorApp.Entity;
 using FreeSql;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
 var builder = WebApplication.CreateBuilder(args).Inject();
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie();
 
 
 // Add services to the container.
@@ -62,6 +65,11 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 
 app.UseInject();
 app.MapDefaultControllerRoute();

@@ -2,16 +2,23 @@
 using BlazorApp.Entity;
 using BootstrapBlazor.Components;
 using Furion.DynamicApiController;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using System.Security.Claims;
 
 
 namespace BlazorApp.Controller
 {
-    public class UserController:IDynamicApiController
+    public class UserController : IDynamicApiController
     {
         public object PostLogin(LoginVo login)
         {
-            if(UserEntity .Select .Where (x=>x.UserName == login.UserName && x.Password ==login .Password).Any())
+            if (UserEntity.Select.Where(x => x.UserName == login.UserName && x.Password == login.Password).Any())
             {
+                var id = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
+                id.AddClaim(new Claim(ClaimTypes.Name, login.UserName!));
+
+                Furion.App.HttpContext.SigninToSwagger(new ClaimsPrincipal(id));
+
                 return new { Code = "200000", Message = "登录成功" };
             }
 
