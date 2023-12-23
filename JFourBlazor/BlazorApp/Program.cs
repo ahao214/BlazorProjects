@@ -1,4 +1,5 @@
 using BlazorApp.Data;
+using FreeSql;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -9,6 +10,19 @@ builder.Services.AddBootstrapBlazor();
 builder.Services.AddRazorPages().AddInjectBase();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+#region Freesql
+
+var connStr = builder.Configuration["Db:ConnStr"];
+IFreeSql fsql = new FreeSql.FreeSqlBuilder()
+        .UseConnectionString(FreeSql.DataType.Sqlite, connStr)
+        .UseMonitorCommand(cmd => Console.WriteLine($"Sql：{cmd.CommandText}"))//监听SQL语句
+        .UseAutoSyncStructure(true) //自动同步实体结构到数据库，FreeSql不会扫描程序集，只有CRUD时才会生成表。
+        .Build();
+
+BaseEntity.Initialization(fsql, () => null);
+
+#endregion
 
 
 var app = builder.Build();
