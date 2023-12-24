@@ -1,4 +1,7 @@
 ﻿@page "/list"
+
+@inject IProduct _product
+
 @using Joker.LearnBlazor.Web.Models
 @using Joker.LearnBlazor.Web.Repository
 
@@ -23,12 +26,10 @@
 
 @code {
     private List<Product> proList;
-    private IProduct _product;
-
+    
     protected override void OnInitialized()
     {
-        base.OnInitialized();
-        _product = new ProductRepository();
+        base.OnInitialized();       
         proList = _product.GetList();
     }
 
