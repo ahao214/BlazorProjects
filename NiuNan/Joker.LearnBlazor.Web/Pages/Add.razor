@@ -1,7 +1,34 @@
 ﻿@page "/add"
+@inject IProduct _product
 
-<h3>Add</h3>
+@using Joker.LearnBlazor.Web.Models
+@using Joker.LearnBlazor.Web.Repository
+
+<h3>Add新增页面</h3>
+
+<EditForm Model="@model" OnSubmit="@HandleSubmit">
+    <div>
+        商品名称:
+        <InputText @bind-Value="model.ProductName" />
+    </div>
+    <div>
+        商品图片:
+        <InputText @bind-Value="model.ThumbnailImage" />
+    </div>
+    <button type="submit">新增</button>
+    @res
+</EditForm>
 
 @code {
+    private string res = "";
+    private Product model = new Product();
+
+    private void HandleSubmit()
+    {
+        Console.WriteLine("提交了,名称是:" + model.ProductName);
+        model.ProductId = new Random().Next(5, 10000);
+        _product.Add(model);
+        res = "新增成功" + DateTime.Now;
+    }
 
 }
