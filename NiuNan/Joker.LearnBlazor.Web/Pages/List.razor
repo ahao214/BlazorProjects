@@ -28,6 +28,7 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        _product = new ProductRepository();
         proList = _product.GetList();
     }
 
