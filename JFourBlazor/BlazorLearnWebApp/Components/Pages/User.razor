@@ -1,14 +1,12 @@
 ﻿@page "/user"
-@using BlazorLearnWebApp.Components.Components
-@using BlazorLearnWebApp.Entity
+@* @using BlazorLearnWebApp.Components.Components
+@using BlazorLearnWebApp.Entity *@
 
-@attribute [TabItemOption(Text = '用户管理', Icon = "fa-fw fa-solid fa-desktop")]
+@* @attribute [TabItemOption(Text = '用户管理', Icon = "fa-fw fa-solid fa-desktop")]
 <AdminTable TItem="UserEntity">
     <TableColumns>
         <TableColumn @bind-Field="@context.UserName"></TableColumn>
         <TableColumn @bind-Field="@context.NickName"></TableColumn>              
     </TableColumns>
-</AdminTable>
-@code {
+</AdminTable> *@
 
-}
