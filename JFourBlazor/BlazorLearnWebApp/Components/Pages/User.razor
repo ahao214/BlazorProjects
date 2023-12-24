@@ -2,6 +2,8 @@
 
 @using BlazorLearnWebApp.Entity
 
+
+@attribute [TabItemOption(Text = "用户管理", Icon = "fa-fw fa-solid fa-desktop")]
 <Table TItem="UserEntity" IsStriped="true" ShowToolbar="true">
     <TableColumns>
         <TableColumn @bind-Field="@context.UserName"></TableColumn>
