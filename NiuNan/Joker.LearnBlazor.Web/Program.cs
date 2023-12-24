@@ -13,4 +13,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 // ×¢Èë
 builder.Services.AddSingleton<IProduct, ProductRepository>();
 
+// ×¢²áAntDesign
+builder.Services.AddAntDesign();
+
 await builder.Build().RunAsync();
