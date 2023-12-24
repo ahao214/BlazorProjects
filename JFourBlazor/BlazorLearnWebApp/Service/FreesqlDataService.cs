@@ -7,16 +7,7 @@ namespace BlazorLearnWebApp.Service
     public class FreesqlDataService<TModel> : DataServiceBase<TModel> where TModel : class, new()
     {
         private readonly IFreeSql _db = BaseEntity.Orm;
-
-        /// <summary>
-        /// 构造函数
-        /// </summary>
-        /// <param name="db"></param>
-        public FreesqlDataService(IFreeSql db)
-        {
-            _db = db;
-        }
-
+      
         /// <summary>
         /// 删除方法
         /// </summary>
