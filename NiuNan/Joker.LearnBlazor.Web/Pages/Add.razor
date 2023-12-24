@@ -1,25 +1,24 @@
 ﻿@page "/add/{Id:int?}"
 @inject IProduct _product
+@inject IMessageService _message
 
 @using Joker.LearnBlazor.Web.Models
 @using Joker.LearnBlazor.Web.Repository
 
 <h3>@btnText</h3>
 
-<EditForm Model="@model" OnSubmit="@HandleSubmit">
-    <div>
-        商品名称:
-        <InputText @bind-Value="model.ProductName" />
-    </div>
-    <div>
-        商品图片:
-        <InputText @bind-Value="model.ThumbnailImage" />
-    </div>
-    <button type="submit">@btnText</button>
-    @res
-</EditForm>
+<Form Model="@model" OnFinish="HandleSubmit">
+    <FormItem Label="商品名称">
+        <Input @bind-Value="@context.ProductName" />
+    </FormItem>
+    <FormItem Label="商品图片">
+        <Input @bind-Value="@context.ThumbnailImage" />
+    </FormItem>
 
-@code {
+    <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
+    </Form>
+
+    @code {
     private string btnText = "新增";
     private string res = "";
 
@@ -55,7 +54,7 @@
             _product.Add(model);
             res = "新增成功" + DateTime.Now;
         }
-
+        _message.Info(res);
     }
 
 }
