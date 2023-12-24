@@ -1,6 +1,7 @@
 ﻿@page "/add/{Id:int?}"
 @inject IProduct _product
 @inject IMessageService _message
+@inject NavigationManager _navigation
 
 @using Joker.LearnBlazor.Web.Models
 @using Joker.LearnBlazor.Web.Repository
@@ -55,6 +56,8 @@
             res = "新增成功" + DateTime.Now;
         }
         _message.Info(res);
+        // 跳转到list页面
+        _navigation.NavigateTo("list");
     }
 
 }
