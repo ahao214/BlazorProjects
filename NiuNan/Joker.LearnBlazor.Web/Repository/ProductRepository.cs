@@ -12,7 +12,7 @@ namespace Joker.LearnBlazor.Web.Repository
                 new Product(){ ProductId=1,ProductName="抽纸",ThumbnailImage="1.jpeg"},
                 new Product(){ ProductId=2,ProductName="牛奶",ThumbnailImage="2.jpeg"},
                 new Product(){ ProductId=3,ProductName="蛋糕",ThumbnailImage="3.jpeg"},
-                new Product(){ ProductId=4,ProductName="Macbook",ThumbnailImage="4.jpeg"},
+                new Product(){ ProductId=4,ProductName="Macbook",ThumbnailImage="4.jpg"},
             };
         }
         public void Add(Product model)
