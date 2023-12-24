@@ -1,10 +1,10 @@
-﻿@page "/add"
+﻿@page "/add/{Id:int?}"
 @inject IProduct _product
 
 @using Joker.LearnBlazor.Web.Models
 @using Joker.LearnBlazor.Web.Repository
 
-<h3>Add新增页面</h3>
+<h3>@btnText</h3>
 
 <EditForm Model="@model" OnSubmit="@HandleSubmit">
     <div>
@@ -15,20 +15,47 @@
         商品图片:
         <InputText @bind-Value="model.ThumbnailImage" />
     </div>
-    <button type="submit">新增</button>
+    <button type="submit">@btnText</button>
     @res
 </EditForm>
 
 @code {
+    private string btnText = "新增";
     private string res = "";
+
+    [Parameter]
+    public int? Id { get; set; }
+
     private Product model = new Product();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (Id.HasValue)
+        {
+            // 编辑
+            model = _product.GetModel(Id.Value);
+            btnText = "编辑";
+        }
+    }
 
     private void HandleSubmit()
     {
         Console.WriteLine("提交了,名称是:" + model.ProductName);
-        model.ProductId = new Random().Next(5, 10000);
-        _product.Add(model);
-        res = "新增成功" + DateTime.Now;
+        if (Id.HasValue)
+        {
+            // 编辑
+            _product.Update(model);
+            res = "编辑成功" + DateTime.Now;
+        }
+        else
+        {
+            // 新增
+            model.ProductId = new Random().Next(5, 10000);
+            _product.Add(model);
+            res = "新增成功" + DateTime.Now;
+        }
+
     }
 
 }
