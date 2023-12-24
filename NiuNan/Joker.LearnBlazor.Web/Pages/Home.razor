@@ -12,7 +12,7 @@
             Joker商品库
         </div>
         <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
-            <MenuItem Key="1">新增商品</MenuItem>            
+            <MenuItem Key="1" @onclick="open">新增商品</MenuItem>            
         </Menu>
     </Header>
     <Layout>
@@ -52,7 +52,14 @@
     </Layout>
 </Layout>
 
- @code{
+<Drawer Closable="true" @bind-Visible="visible" Placement="right" Title='("Basic Drawer")' OnClose="_=>close()">
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+    <p>Some contents...</p>
+</Drawer>
+
+@code{
+    bool visible = false;
     private ListGridType grid = new()
         {
             Gutter = 16,
@@ -71,7 +78,14 @@
         Data = _product.GetList();
     }
 
-
+    void open()
+    {
+        this.visible = true;
+    }
+    void close()
+    {
+        this.visible = false;
+    }
 
 }
 
