@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "NiuNan", "NiuNan", "{A8ECE2
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorLearnWebApp", "JFourBlazor\BlazorLearnWebApp\BlazorLearnWebApp.csproj", "{DDDB059A-F1BB-431B-974A-A69BB44CF59A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Joker.LearnBlazor.Web", "NiuNan\Joker.LearnBlazor.Web\Joker.LearnBlazor.Web.csproj", "{39AFF94D-41E2-4FC8-A6D5-5B80A2F1B4FD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,12 +23,17 @@ Global
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{39AFF94D-41E2-4FC8-A6D5-5B80A2F1B4FD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{39AFF94D-41E2-4FC8-A6D5-5B80A2F1B4FD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{39AFF94D-41E2-4FC8-A6D5-5B80A2F1B4FD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{39AFF94D-41E2-4FC8-A6D5-5B80A2F1B4FD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A} = {E4DDF1CF-9873-469C-98BA-09818E690CA6}
+		{39AFF94D-41E2-4FC8-A6D5-5B80A2F1B4FD} = {E363151B-C41E-4622-9905-4D31F3FBAAD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {36A31882-568E-4CDB-9027-2E1A7A525B86}
