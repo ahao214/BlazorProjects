@@ -64,11 +64,11 @@ namespace BlazorLearnWebApp.Components.Layout
             await Task.Delay(10);
 
             Menus = new List<MenuItem>
-        {
-            new() { Text = "首页", Icon = "fa-fw fa-solid fa-house", Url = "/" },
-            new() { Text = "用户管理", Icon = "fa-fw fa-solid fa-desktop", Url = "user" },
-            new() { Text = "示例网页", Icon = "fa-fw fa-solid fa-laptop", Url = "layout-demo/text=Parameter1" }
-        };
+            {
+                new() { Text = "首页", Icon = "fa-fw fa-solid fa-house", Url = "/" },
+                new() { Text = "用户管理", Icon = "fa-fw fa-solid fa-desktop", Url = "user" },
+                new() { Text = "菜单管理", Icon = "fa-fw fa-solid fa-laptop", Url = "menu" }
+            };
         }
 
         /// <summary>
