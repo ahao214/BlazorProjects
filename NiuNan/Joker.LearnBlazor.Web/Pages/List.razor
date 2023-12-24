@@ -1,7 +1,36 @@
 ﻿@page "/list"
+@using Joker.LearnBlazor.Web.Models
+@using Joker.LearnBlazor.Web.Repository
 
-<h3>List</h3>
+<h3>List列表页</h3>
+
+<table>
+    <tr>
+        <th>商品ID</th>
+        <th>商品名称</th>
+        <th>商品图片</th>
+    </tr>
+    @foreach(var item in proList)
+    {
+        <tr>
+            <td>@item.ProductId</td>
+            <td>@item.ProductName</td>
+            <td>@item.ThumbnailImage</td>
+        </tr>
+    }
+</table>
+
 
 @code {
+    private List<Product> proList;
+    private IProduct _product;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        proList = _product.GetList();
+    }
+
+
 
 }

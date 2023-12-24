@@ -11,6 +11,6 @@ namespace Joker.LearnBlazor.Web.Repository
         void Delete(int id);
         void Update(Product model);
         List<Product> GetList();
-
+        Product GetModel(int id);
     }
 }
