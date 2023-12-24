@@ -9,9 +9,10 @@ namespace Joker.LearnBlazor.Web.Repository
         {
             proList = new List<Product>()
             {
-                new Product(){ ProductId=1,ProductName="抽纸",ThumbnailImage="01.jpg"},
-                new Product(){ ProductId=2,ProductName="牛奶",ThumbnailImage="02.jpg"},
-                new Product(){ ProductId=3,ProductName="蛋糕",ThumbnailImage="03.jpg"},
+                new Product(){ ProductId=1,ProductName="抽纸",ThumbnailImage="1.jpeg"},
+                new Product(){ ProductId=2,ProductName="牛奶",ThumbnailImage="2.jpeg"},
+                new Product(){ ProductId=3,ProductName="蛋糕",ThumbnailImage="3.jpeg"},
+                new Product(){ ProductId=4,ProductName="Macbook",ThumbnailImage="21.jpeg"},
             };
         }
         public void Add(Product model)

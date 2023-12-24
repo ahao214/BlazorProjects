@@ -1,77 +1,79 @@
 ﻿@page "/"
 
+@inject IProduct _product
+
+@using Joker.LearnBlazor.Web.Models
+@using Joker.LearnBlazor.Web.Repository
+
 
 <Layout>
     <Header Class="header">
-        <div class="logo" />
+        <div class="JokerLogo">
+            Joker商品库
+        </div>
         <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
-            <MenuItem Key="1">nav 1</MenuItem>
-            <MenuItem Key="2">nav 2</MenuItem>
-            <MenuItem Key="3">nav 3</MenuItem>
+            <MenuItem Key="1">新增商品</MenuItem>            
         </Menu>
     </Header>
     <Layout>
         <Sider Width="200" Class="site-layout-background">
-            <Menu Mode="MenuMode.Inline"
-                  DefaultSelectedKeys=@(new[] {"1"})
-                  DefaultOpenKeys=@(new[] {"sub1"})
-                  Style="height: 100%; border-right: 0;">
-                @{
-                    RenderFragment sub1Title =
-                    @<span>
-                        <Icon Type="user" Theme="outline" />
-                        subnav 1
-                    </span>
-                    ;
-                }
-                <SubMenu Key="sub1" Title=sub1Title>
-                    <MenuItem Key="1">option1</MenuItem>
-                    <MenuItem Key="2">option2</MenuItem>
-                    <MenuItem Key="3">option3</MenuItem>
-                    <MenuItem Key="4">option4</MenuItem>
-                </SubMenu>
-                @{
-                    RenderFragment sub2Title =
-                    @<span>
-                        <Icon Type="laptop" Theme="outline" />
-                        subnav 2
-                    </span>
-                    ;
-                }
-                <SubMenu Key="sub2" Title=sub2Title>
-                    <MenuItem Key="5">option5</MenuItem>
-                    <MenuItem Key="6">option6</MenuItem>
-                    <MenuItem Key="7">option7</MenuItem>
-                    <MenuItem Key="8">option8</MenuItem>
-                </SubMenu>
-                @{
-                    RenderFragment sub3Title =
-                    @<span>
-                        <Icon Type="notification" Theme="outline" />
-                        subnav 3
-                    </span>
-                    ;
-                }
-                <SubMenu Key="sub3" Title=sub3Title>
-                    <MenuItem Key="9">option9</MenuItem>
-                    <MenuItem Key="10">option10</MenuItem>
-                    <MenuItem Key="11">option11</MenuItem>
-                    <MenuItem Key="12">option12</MenuItem>
-                </SubMenu>
-            </Menu>
+            <Tree TItem="string" DefaultExpandAll="true">
+                 <TreeNode Title="parent 1" Key="0-0" TItem="string">
+                     <TreeNode Title="parent 1-0" Key="0-0-0"  TItem="string">
+                         <TreeNode Title="leaf" Key="0-0-0-0"  TItem="string"></TreeNode>
+                         <TreeNode Title="leaf" Key="0-0-0-1" TItem="string"></TreeNode>
+                     </TreeNode>
+                     <TreeNode Title="parent 1-1" Key="0-0-1" TItem="string">
+                         <TreeNode Key="0-0-1-0" TItem="string">
+                             <TitleTemplate>
+                                 <span style="color: #1890ff; ">sss</span>
+                             </TitleTemplate>
+                         </TreeNode>
+                     </TreeNode>
+                 </TreeNode>
+             </Tree>
         </Sider>
         <Layout Style=" padding: 0 24px 24px;">
             <Breadcrumb Style="margin: 16px 0;">
-                <BreadcrumbItem>Home</BreadcrumbItem>
-                <BreadcrumbItem>List</BreadcrumbItem>
-                <BreadcrumbItem>App</BreadcrumbItem>
+                <BreadcrumbItem>电子产品</BreadcrumbItem>
+                <BreadcrumbItem>手机</BreadcrumbItem>                
             </Breadcrumb>
             <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
-                Content
+                <AntList Grid="grid" DataSource="@Data">
+                    <Card Bordered="false" Title="@(context.ProductName)">
+                        <Body>
+                            <Image Class="oneimg" Width="100%" Src="@("/images/"+context.ThumbnailImage)" />
+                        </Body>
+                    </Card>
+                    
+                 </AntList>
             </Content>
         </Layout>
     </Layout>
 </Layout>
+
+ @code{
+    private ListGridType grid = new()
+        {
+            Gutter = 16,
+            Xs = 4,
+            Sm = 4,
+            Md = 4,
+            Lg = 4,
+            Xl = 4,
+            Xxl = 4,
+        };
+
+    public List<Product> Data = new List<Product>();
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Data = _product.GetList();
+    }
+
+
+
+}
 
 <style>
     #components-layout-demo-top-side-2 .logo {
@@ -85,4 +87,18 @@
     .site-layout-background {
         background: #fff;
     }
+
+    .JokerLogo{
+        color:white;
+        font-size:22px;
+        width:200px;
+        float:left;
+        font-weight:bold;
+    }
+
+    .oneimg{
+        max-width:400px;
+    }
 </style>
+
+            
