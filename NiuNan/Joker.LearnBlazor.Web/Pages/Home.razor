@@ -42,6 +42,9 @@
             <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
                 <AntList Grid="grid" DataSource="@Data">
                     <Card Bordered="false" Title="@(context.ProductName)">
+                        <Extra>
+                            <a @onclick="()=>Edit(context.ProductId)">编辑</a>
+                        </Extra>
                         <Body>
                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
                         </Body>
@@ -102,6 +105,9 @@
         this.visible = false;
     }
 
+    /// <summary>
+    /// 新增按钮
+    /// </summary>
     private void HandleSubmit()
     {
         Console.WriteLine("提交了,名称是:" + model.ProductName);
@@ -124,6 +130,19 @@
         _message.Info(res);
         this.close();
     }
+
+    /// <summary>
+    /// 编辑按钮
+    /// </summary>
+    /// <param name="id"></param>
+    private void Edit(int id)
+    {
+        model = _product.GetModel(id);
+        btnText = "编辑";
+        this.open();
+
+    }
+
 }
 
 <style>
