@@ -193,6 +193,11 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        BindData();
+    }
+    // 查询商品和分类绑定到Data和calist上
+    private void BindData()
+    {
         Data = _product.GetList();
         calist = _category.GetTreeModel();
     }
@@ -265,7 +270,7 @@
     /// <summary>
     /// 新增编辑功能
     /// </summary>
-    private void HandleSubmit()
+    private  void HandleSubmit()
     {
         Console.WriteLine("提交了,名称是:" + model.ProductName);
         string res = "";
@@ -294,7 +299,9 @@
         // 清空文本框
         model = new Product();
         _message.Info(res);
+
         this.close();
+        BindData();
     }
 
     /// <summary>
@@ -330,6 +337,7 @@
     private void DeletePro(int id)
     {
         _product.Delete(id);
+        BindData();
     }
 
     #endregion

@@ -12,7 +12,7 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public int CalcCount(int caid)
         {
-            return SqlSugarHelper.Db.Queryable<Product>().Count();
+            return SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.CategoryId == caid).Count();
         }
 
         public void Delete(int id)
