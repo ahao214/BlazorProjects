@@ -1,0 +1,67 @@
+﻿@page "/categoryPage"
+@using Joker.LearnBlazor.WebService.Models
+@using Joker.LearnBlazor.WebService.Repository
+
+@inject ICategory _category
+@inject IProduct _product
+
+<Layout Style="min-height: 100vh; ">
+    <Sider Width="250"  Style="background-color:white">
+        <h3>分类管理</h3>
+        <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
+              KeyExpression="x=>x.DataItem.CategoryId.ToString()"
+              TItem="Category">
+        </Tree>
+    </Sider>
+    <Layout Class="site-layout">
+
+        内容
+    </Layout>
+</Layout>
+
+
+@code{
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        calist = _category.GetTreeModel();
+    }
+
+
+    #region 分类树
+
+    //商品分类
+    private List<Category> calist;
+
+    // 选择树节点
+    void OnSelect(TreeEventArgs<Category> args)
+    {
+        Category selCa = args.Node.DataItem;
+       
+    }
+
+    // 节点显示商品数
+    private string GetTreeTitle(Category ca)
+    {
+        return ca.CategoryName + "(商品数:" + _product.CalcCount(ca.CategoryId) + ")";
+    }
+
+    #endregion
+}
+
+
+
+
+<style>
+    #components-layout-demo-side .logo {
+        height: 32px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 16px;
+    }
+
+    .site-layout .site-layout-background {
+        background: #fff;
+    }
+</style>
+
+

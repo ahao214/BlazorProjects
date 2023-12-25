@@ -1,4 +1,6 @@
 ﻿@page "/"
+@using Joker.LearnBlazor.WebService.Models
+@using Joker.LearnBlazor.WebService.Repository
 
 @inject IProduct _product
 @inject ICategory _category
@@ -6,11 +8,8 @@
 @inject IWebHostEnvironment _environment
 @inject NavigationManager _navManager
 
-@using Joker.LearnBlazor.WebService.Models
-@using Joker.LearnBlazor.WebService.Repository
 
-
-<Layout>
+<Layout Style="min-height: 100vh; ">
     <Header Class="header">
         <div class="JokerLogo">
             Joker商品库
@@ -19,7 +18,7 @@
         {
             <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
                 <MenuItem Key="1" @onclick="Add">新增商品</MenuItem>
-                <MenuItem Key="2" @onclick="@(()=>{_navManager.NavigateTo("/category")})">分类管理</MenuItem>
+                <MenuItem Key="2" @onclick="@(()=>{_navManager.NavigateTo("/categoryPage");})">分类管理</MenuItem>
                 <MenuItem Key="3" @onclick="@(()=>{isLogin=false;})">退出登录</MenuItem>
             </Menu>
         }
@@ -29,7 +28,7 @@
         }
 
     </Header>
-    <Layout>
+    <Layout >
         <Sider Width="250" Class="site-layout-background">
             <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
                   KeyExpression="x=>x.DataItem.CategoryId.ToString()"
