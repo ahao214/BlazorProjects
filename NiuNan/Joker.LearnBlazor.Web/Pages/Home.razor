@@ -33,6 +33,8 @@
                     <Card Bordered="false" Title="@(context.ProductName)">
                         <Extra>                            
                             <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
+
+                            <Button @onclick="()=>DeletePro(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
                         </Extra>
                         <Body>
                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
@@ -59,7 +61,8 @@
     </Drawer>
 
     @code {
-    #region
+
+    #region 变量
 
     //商品分类
     private List<Category> calist;
@@ -107,8 +110,10 @@
                 new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},               
             } },
         };
-
     }
+
+    #region 商品增 删 改
+
     // 打开抽屉
     void open()
     {
@@ -155,9 +160,18 @@
         model = _product.GetModel(id);
         btnText = "编辑";
         this.open();
-
     }
 
+    /// <summary>
+    /// 删除商品
+    /// </summary>
+    /// <param name="id"></param>
+    private void DeletePro(int id)
+    {
+        _product.Delete(id);
+    }
+
+    #endregion
 }
 
 <style>
