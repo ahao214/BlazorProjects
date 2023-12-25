@@ -14,5 +14,8 @@ namespace Joker.LearnBlazor.Web.Repository
         Product GetModel(int id);
 
         List<Product> GetListByCaId(int caid);
+
+        int CalcCount(int caid);
+
     }
 }

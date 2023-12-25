@@ -62,5 +62,12 @@ namespace Joker.LearnBlazor.Web.Repository
             return proList.Where(pro => pro.CategoryId == caid).ToList();
         }
 
+        public int CalcCount(int caid)
+        {
+            return proList.Where(pro => pro.CategoryId == caid).Count();
+
+        }
+
+
     }
 }

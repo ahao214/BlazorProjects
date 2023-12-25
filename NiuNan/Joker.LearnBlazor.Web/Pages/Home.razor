@@ -18,8 +18,8 @@
         </Menu>
     </Header>
     <Layout>
-        <Sider Width="200" Class="site-layout-background">
-            <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>x.DataItem.CategoryName" ChildrenExpression="x=>x.DataItem.Items"
+        <Sider Width="250" Class="site-layout-background">
+            <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
                   KeyExpression="x=>x.DataItem.CategoryId.ToString()"
                   TItem="Category">
             </Tree>
@@ -72,7 +72,7 @@
              <Input @bind-Value="@context.ThumbnailImage" />
          </FormItem>
          <FormItem Label="商品分类">
-             <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear Multiple TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
+             <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear  TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
 
              </TreeSelect>
          </FormItem>
@@ -147,6 +147,12 @@
         Data = _product.GetListByCaId(selCa.CategoryId);
     }
 
+    // 节点显示商品数
+    private string GetTreeTitle(Category ca)
+    {
+        return ca.CategoryName + "(商品数:" + _product.CalcCount(ca.CategoryId) + ")";
+    }
+
     #endregion
 
     #region 商品查询
@@ -207,6 +213,7 @@
         btnText = "新增";
         model = new Product() { CategoryId = 0, ProductName = "", ThumbnailImage = "" };
         this.visible = true;
+         selCaId = "";
     }
 
     /// <summary>
@@ -218,6 +225,7 @@
         model = _product.GetModel(id);
         btnText = "编辑";
         this.visible = true;
+        selCaId = model.CategoryId.ToString();
     }
 
     /// <summary>
