@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using SqlSugar;
 
 namespace Joker.LearnBlazor.WebService.Models
 {
@@ -7,6 +8,7 @@ namespace Joker.LearnBlazor.WebService.Models
     /// </summary>
     public class Product
     {
+        [SugarColumn(IsPrimaryKey=true,IsIdentity =true)]
         public int ProductId { get; set; } = 0;
         [Required]
         [Display(Name = "商品名称")]

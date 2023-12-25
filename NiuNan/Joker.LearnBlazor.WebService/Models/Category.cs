@@ -1,10 +1,13 @@
-﻿namespace Joker.LearnBlazor.WebService.Models
+﻿using SqlSugar;
+
+namespace Joker.LearnBlazor.WebService.Models
 {
     /// <summary>
     /// 商品分类
     /// </summary>
     public class Category
     {
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int CategoryId { get; set; } = 0;
 
         public string CategoryName { get; set; } = "";
@@ -15,6 +18,7 @@
         /// </summary>
         public string CategoryPath { get; set; } = string.Empty;
 
+        [SugarColumn(IsIgnore =true)]
         public List<Category> Items { get; set; } = new List<Category>();
 
     }
