@@ -14,7 +14,8 @@ namespace Joker.LearnBlazor.Web.Models
         [Required]
         [Display(Name = "商品图片")]
         public string ThumbnailImage { get; set; } = "";
-
+        [Required]
+        [Display(Name ="商品分类")]
         public int CategoryId { get; set; } = 0;
 
     }
