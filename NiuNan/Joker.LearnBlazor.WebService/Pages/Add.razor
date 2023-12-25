@@ -1,0 +1,63 @@
+﻿@page "/add/{Id:int?}"
+@inject IProduct _product
+@inject IMessageService _message
+@inject NavigationManager _navigation
+
+@using Joker.LearnBlazor.WebService.Models
+@using Joker.LearnBlazor.WebService.Repository
+
+<h3>@btnText</h3>
+
+<Form Model="@model" OnFinish="HandleSubmit">
+    <FormItem Label="商品名称">
+        <Input @bind-Value="@context.ProductName" />
+    </FormItem>
+    <FormItem Label="商品图片">
+        <Input @bind-Value="@context.ThumbnailImage" />
+    </FormItem>
+
+    <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
+    </Form>
+
+    @code {
+    private string btnText = "新增";
+    private string res = "";
+
+    [Parameter]
+    public int? Id { get; set; }
+
+    private Product model = new Product();
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        if (Id.HasValue)
+        {
+            // 编辑
+            model = _product.GetModel(Id.Value);
+            btnText = "编辑";
+        }
+    }
+
+    private void HandleSubmit()
+    {
+        Console.WriteLine("提交了,名称是:" + model.ProductName);
+        if (Id.HasValue)
+        {
+            // 编辑
+            _product.Update(model);
+            res = "编辑成功" + DateTime.Now;
+        }
+        else
+        {
+            // 新增
+            model.ProductId = new Random().Next(5, 10000);
+            _product.Add(model);
+            res = "新增成功" + DateTime.Now;
+        }
+        _message.Info(res);
+        // 跳转到list页面
+        //_navigation.NavigateTo("/");
+    }
+
+}

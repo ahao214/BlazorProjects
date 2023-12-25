@@ -1,4 +1,5 @@
 using Joker.LearnBlazor.WebService.Data;
+using Joker.LearnBlazor.WebService.Repository;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
 
@@ -8,6 +9,16 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
+
+
+// ×¢Èë
+builder.Services.AddSingleton<IProduct, ProductRepository>();
+builder.Services.AddSingleton<ICategory, CategoryRepository>();
+
+// ×¢²áAntDesign
+builder.Services.AddAntDesign();
+
+
 
 var app = builder.Build();
 

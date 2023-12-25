@@ -1,0 +1,62 @@
+﻿@page "/list"
+
+@inject IProduct _product
+@inject IMessageService _message
+
+@using Joker.LearnBlazor.WebService.Models
+@using Joker.LearnBlazor.WebService.Repository
+
+
+<h3>List列表页</h3>
+
+<table class="table">
+    <tr>
+        <th>商品ID</th>
+        <th>商品名称</th>
+        <th>商品图片</th>
+        <th>操作</th>
+    </tr>
+    @foreach (var item in proList)
+    {
+        <tr>
+            <td>@item.ProductId</td>
+            <td>@item.ProductName</td>
+            <td>@item.ThumbnailImage</td>
+            <td>
+                <a class="btn btn-primary btn-sm" href="/add/@item.ProductId">编辑</a>
+                @* <button class="btn btn-danger btn-sm" @onclick="()=>Delete(item.ProductId)">删除</button> *@
+                <Popconfirm Title="是否确认删除" OnConfirm="()=>Confirm(item.ProductId)" OnCancel="Cancel">
+                    <Button Danger Type="primary">删除</Button>
+             </Popconfirm>
+         </td>
+     </tr>
+    }
+</table>
+
+
+@code {
+    private List<Product> proList;
+
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        proList = _product.GetList();
+    }
+
+    private void Delete(int id)
+    {
+        _product.Delete(id);
+    }
+
+    private void Confirm(int id)
+    {
+        _product.Delete(id);
+        _message.Success("Clicked on Yes");
+    }
+
+    private void Cancel()
+    {
+        // _message.Error("Click on No");
+    }
+
+}
