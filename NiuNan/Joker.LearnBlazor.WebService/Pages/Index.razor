@@ -14,9 +14,17 @@
         <div class="JokerLogo">
             Joker商品库
         </div>
-        <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
-            <MenuItem Key="1" @onclick="Add">新增商品</MenuItem>
-        </Menu>
+        @if (isLogin)
+        {
+            <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
+                <MenuItem Key="1" @onclick="Add">新增商品</MenuItem>
+            </Menu>
+        }
+        else
+        {
+            <Button Type="primary" OnClick="@(()=>{loginWinVisible=true;})">登录</Button>
+        }
+
     </Header>
     <Layout>
         <Sider Width="250" Class="site-layout-background">
@@ -47,43 +55,47 @@
                  <AntList Grid="grid" DataSource="@Data">
                      <Card Bordered="false" Title="@(context.ProductName)">
                          <Extra>
-                             <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
+                             @if (isLogin)
+                            {
+                                <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
 
-                             <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(context.ProductId)">
-                                 <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
-                             </Popconfirm>
-                         </Extra>
-                         <Body>
-                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
-                         </Body>
-                     </Card>
+                                <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(context.ProductId)">
+                                    <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
+                                 </Popconfirm>
+                            }
 
-                 </AntList>
-             </Content>
-         </Layout>
-     </Layout>
- </Layout>
+                        </Extra>
+                        <Body>
+                            <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
+                        </Body>
+                    </Card>
 
- <Drawer Closable="true" Width="400" @bind-Visible="visible" Placement="right" Title='@btnText' OnClose="_=>close()">
-     <Form Model="@model" OnFinish="HandleSubmit">
-         <FormItem Label="商品名称">
-             <Input @bind-Value="@context.ProductName" />
-         </FormItem>
+                </AntList>
+            </Content>
+        </Layout>
+    </Layout>
+</Layout>
 
-         <FormItem Label="商品图片">
-             <InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />             <Upload Name="files" FileList="fileList">
-                 <label class="ant-btn" for="fileInput">
-                     <Icon Type="upload" />
-                     选择图片
-                 </label>
-             </Upload>
+<Drawer Closable="true" Width="400" @bind-Visible="visible" Placement="right" Title='@btnText' OnClose="_=>close()">
+    <Form Model="@model" OnFinish="HandleSubmit">
+        <FormItem Label="商品名称">
+            <Input @bind-Value="@context.ProductName" />
+        </FormItem>
+
+        <FormItem Label="商品图片">
+            <InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />             <Upload Name="files" FileList="fileList">
+                <label class="ant-btn" for="fileInput">
+                    <Icon Type="upload" />
+                    选择图片
+                </label>
+            </Upload>
 
 
-         </FormItem>
+        </FormItem>
 
 
-         <FormItem Label="商品分类">
-             <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
+        <FormItem Label="商品分类">
+            <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
 
              </TreeSelect>
          </FormItem>
@@ -91,9 +103,30 @@
         </Form>
     </Drawer>
 
+
+    <Modal Title="登录" Visible="@loginWinVisible" OnOk="@Login" OnCancel="@(()=>{loginWinVisible=false;})">
+
+        <p>
+            <Input Placeholder="请输入用户名" @bind-Value="@loginName" />
+        </p>
+        <p>
+            <InputPassword Placeholder="请输入密码" @bind-Value="@loginPwd" />
+        </p>
+
+    </Modal>
+
+
     @code {
 
     #region 变量
+
+    // 是否登录
+    private bool isLogin = false;
+    private bool loginWinVisible = false;    //是否显示登录框
+    private string loginName = string.Empty;  //登录名
+    private string loginPwd = string.Empty; //登录密码
+
+
     //面包屑
     private List<string> mbxList = new List<string>() { "分类1", "分类2", "分类3" };
     //商品分类
@@ -117,8 +150,6 @@
 
     private string selCaId = ""; // 选择的商品分类ID
 
-    #endregion
-
     private ListGridType grid = new()
         {
             Gutter = 16,
@@ -131,6 +162,27 @@
         };
 
     public List<Product> Data = new List<Product>();
+
+    #endregion
+
+
+    #region 登录方法
+
+    private void Login()
+    {
+        if(loginName=="admin" && loginPwd=="admin")
+        {
+            isLogin = true;
+            loginWinVisible = false;
+        }
+        else
+        {
+            _message.Error("用户名或密码出错");
+        }
+    }
+
+    #endregion
+
 
     #region 页面加载
 
@@ -181,7 +233,7 @@
             {
                 _message.Error("上传图片出错:" + ex.Message);
             }
-        }     
+        }
     }
 
     #endregion
