@@ -118,22 +118,7 @@
     {
         base.OnInitialized();
         Data = _product.GetList();
-        calist = _category.GetTreeModel();
-
-        // calist = new List<Category>()
-        // {
-        //     new Category(){ CategoryId=1,CategoryName="电子产品",ParentId=0,Items=new List<Category>()
-        //     {
-        //         new Category(){CategoryId=11,CategoryName="手机",ParentId=1},
-        //         new Category(){CategoryId=12,CategoryName="电脑",ParentId=1},
-        //         new Category(){CategoryId=13,CategoryName="平板",ParentId=1},
-        //     } },
-        //      new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,Items=new List<Category>()
-        //     {
-        //         new Category(){CategoryId=21,CategoryName="牙签",ParentId=2},
-        //         new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},
-        //     } },
-        // };
+        calist = _category.GetTreeModel();        
     }
 
     #region 分类树
