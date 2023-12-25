@@ -1,6 +1,7 @@
 ﻿@page "/"
 
 @inject IProduct _product
+@inject ICategory _category
 @inject IMessageService _message
 
 @using Joker.LearnBlazor.Web.Models
@@ -27,8 +28,10 @@
             <GridRow>
                 <GridCol Span="16">
                     <Breadcrumb Style="margin: 16px 0;">
-                        <BreadcrumbItem>电子产品</BreadcrumbItem>
-                        <BreadcrumbItem>手机</BreadcrumbItem>
+                        @foreach(var item in mbxList)
+                        {
+                            <BreadcrumbItem>@item</BreadcrumbItem>
+                        }                        
                     </Breadcrumb>
                 </GridCol>
                 <GridCol Span="8">
@@ -76,7 +79,8 @@
     @code {
 
     #region 变量
-
+    //面包屑
+    private List<string> mbxList = new List<string>() { "分类1", "分类2", "分类3" };
     //商品分类
     private List<Category> calist;
 
@@ -108,20 +112,22 @@
     {
         base.OnInitialized();
         Data = _product.GetList();
-        calist = new List<Category>()
-        {
-            new Category(){ CategoryId=1,CategoryName="电子产品",ParentId=0,Items=new List<Category>()
-            {
-                new Category(){CategoryId=11,CategoryName="手机",ParentId=1},
-                new Category(){CategoryId=12,CategoryName="电脑",ParentId=1},
-                new Category(){CategoryId=13,CategoryName="平板",ParentId=1},
-            } },
-             new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,Items=new List<Category>()
-            {
-                new Category(){CategoryId=21,CategoryName="牙签",ParentId=2},
-                new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},               
-            } },
-        };
+        calist = _category.GetTreeModel();
+
+        // calist = new List<Category>()
+        // {
+        //     new Category(){ CategoryId=1,CategoryName="电子产品",ParentId=0,Items=new List<Category>()
+        //     {
+        //         new Category(){CategoryId=11,CategoryName="手机",ParentId=1},
+        //         new Category(){CategoryId=12,CategoryName="电脑",ParentId=1},
+        //         new Category(){CategoryId=13,CategoryName="平板",ParentId=1},
+        //     } },
+        //      new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,Items=new List<Category>()
+        //     {
+        //         new Category(){CategoryId=21,CategoryName="牙签",ParentId=2},
+        //         new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},               
+        //     } },
+        // };
     }
 
     #region 商品查询

@@ -5,13 +5,17 @@
     /// </summary>
     public class Category
     {
-        public int CategoryId { get; set; }
+        public int CategoryId { get; set; } = 0;
 
-        public string CategoryName { get; set; }
+        public string CategoryName { get; set; } = "";
 
-        public int ParentId { get; set; }
+        public int ParentId { get; set; } = 0;
+        /// <summary>
+        /// 分类路径 存储所有父类ID 如:1,2,3,4
+        /// </summary>
+        public string CategoryPath { get; set; } = string.Empty;
 
-        public List<Category> Items { get; set; }
+        public List<Category> Items { get; set; } = new List<Category>();
 
     }
 }

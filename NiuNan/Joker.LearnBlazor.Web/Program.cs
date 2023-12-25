@@ -12,6 +12,7 @@ builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.
 
 // ×¢Èë
 builder.Services.AddSingleton<IProduct, ProductRepository>();
+builder.Services.AddSingleton<ICategory, CategoryRepository>();
 
 // ×¢²áAntDesign
 builder.Services.AddAntDesign();
