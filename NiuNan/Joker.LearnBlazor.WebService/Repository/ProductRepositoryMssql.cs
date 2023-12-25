@@ -51,9 +51,25 @@ namespace Joker.LearnBlazor.WebService.Repository
             return SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.ProductName.Contains(searchKey)).ToList();
         }
 
+        /// <summary>
+        /// 根据分类ID获取商品
+        /// </summary>
+        /// <param name="caid"></param>
+        /// <returns></returns>
         public List<Product> GetListByCaId(int caid)
         {
-            return SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.ProductId == caid).ToList();
+            Category ca = _category.GetModel(caid);
+            string tmp = string.Empty;
+            if (ca.ParentId == 0)
+            {
+                // 第一级分类 ,1,
+                tmp = $",{ca.CategoryId},";
+            }
+            else
+            {
+                tmp = ca.CategoryPath + ca.CategoryId + ",";
+            }
+            return SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.ProductId == caid|| pro.Category.CategoryPath.StartsWith(tmp)).ToList();
         }
 
         public Product GetModel(int id)
