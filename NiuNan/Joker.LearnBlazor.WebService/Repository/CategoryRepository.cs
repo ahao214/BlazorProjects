@@ -1,4 +1,5 @@
 ﻿using Joker.LearnBlazor.WebService.Models;
+using OneOf;
 
 namespace Joker.LearnBlazor.WebService.Repository
 {
@@ -67,6 +68,7 @@ namespace Joker.LearnBlazor.WebService.Repository
             var top = categories.Where(ca => ca.ParentId == 0).ToList();
             foreach (var oneca in top)
             {
+                oneca.Items.Clear();
                 Digui(oneca);
                 list.Add(oneca);
             }
@@ -82,6 +84,7 @@ namespace Joker.LearnBlazor.WebService.Repository
             var sub = categories.Where(ca => ca.ParentId == model.CategoryId).ToList();
             foreach (var ca in sub)
             {
+                ca.Items.Clear();
                 Digui(ca);
                 model.Items.Add(ca);
             }
