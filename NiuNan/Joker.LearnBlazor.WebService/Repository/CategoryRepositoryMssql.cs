@@ -4,6 +4,21 @@ namespace Joker.LearnBlazor.WebService.Repository
 {
     public class CategoryRepositoryMssql : ICategory
     {
+        public void Add(Category model)
+        {
+            SqlSugarHelper.Db.Insertable(model).ExecuteCommand();
+        }
+
+        public void Delete(int id)
+        {
+            SqlSugarHelper.Db.Deleteable<Category>(a => a.CategoryId == id).ExecuteCommand();
+        }
+
+        public void Update(Category modle)
+        {
+            SqlSugarHelper.Db.Updateable(modle).ExecuteCommand();   
+        }
+
         public List<Category> GetList()
         {
             return SqlSugarHelper.Db.Queryable<Category>().ToList();
@@ -46,6 +61,8 @@ namespace Joker.LearnBlazor.WebService.Repository
             }
             return list;
         }
+
+
 
         /// <summary>
         /// 递归添加下级节点

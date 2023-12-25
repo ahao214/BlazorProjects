@@ -12,5 +12,9 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         Category GetModel(int caid);
 
+        void Add(Category model);
+        void Delete(int id);
+        void Update(Category modle); 
+
     }
 }
