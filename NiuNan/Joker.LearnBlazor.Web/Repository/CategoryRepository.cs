@@ -7,20 +7,20 @@ namespace Joker.LearnBlazor.Web.Repository
         private List<Category> categories = new List<Category>();
 
         public CategoryRepository()
-        {           
+        {
             categories = new List<Category>()
              {
-                 new Category(){ CategoryId=1,CategoryName="电子产品",ParentId=0,Items=new List<Category>()
-                 {
-                     new Category(){CategoryId=11,CategoryName="手机",ParentId=1},
-                     new Category(){CategoryId=12,CategoryName="电脑",ParentId=1},
-                     new Category(){CategoryId=13,CategoryName="平板",ParentId=1},
-                 } },
-                  new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,Items=new List<Category>()
-                 {
-                     new Category(){CategoryId=21,CategoryName="牙签",ParentId=2},
-                     new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},
-                 } },
+                 new Category(){ CategoryId=1,CategoryName="电子产",ParentId=0,CategoryPath
+                 =""},
+                 new Category (){ CategoryId=11,CategoryName="手机",ParentId=1,CategoryPath=",1,"},
+                 new Category (){ CategoryId=12,CategoryName="平板",ParentId=1,CategoryPath=",1,"},
+                 new Category (){ CategoryId=13,CategoryName="电脑",ParentId=1,CategoryPath=",1,"},
+                 new Category (){ CategoryId=131,CategoryName="联想电脑",ParentId=13,CategoryPath=",1,13,"},
+
+                 new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,CategoryPath=""},
+                 new Category(){ CategoryId=21,CategoryName="抽纸",ParentId=2,CategoryPath=",2,"},
+                 new Category(){ CategoryId=22,CategoryName="牙签",ParentId=2,CategoryPath=",2,"},
+
              };
         }
 
@@ -31,7 +31,20 @@ namespace Joker.LearnBlazor.Web.Repository
 
         public List<string> GetMBXList(int caid)
         {
-            throw new NotImplementedException();
+            List<string> list = new List<string>();
+            Category ca = GetModel(caid);
+            string[] caids = ca.CategoryPath.Split(',');
+            foreach (var item in caids)
+            {
+                if (string.IsNullOrEmpty(item))
+                {
+                    continue;
+                }
+                Category temp = GetModel(int.Parse(item));
+                list.Add(temp.CategoryName);
+            }
+            list.Add(ca.CategoryName);
+            return list;
         }
 
         public Category GetModel(int caid)

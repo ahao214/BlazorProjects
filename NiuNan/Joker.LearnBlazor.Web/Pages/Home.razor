@@ -19,7 +19,7 @@
     </Header>
     <Layout>
         <Sider Width="200" Class="site-layout-background">
-            <Tree DefaultExpandAll="true" DataSource="calist" TitleExpression="x=>x.DataItem.CategoryName" ChildrenExpression="x=>x.DataItem.Items" 
+            <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>x.DataItem.CategoryName" ChildrenExpression="x=>x.DataItem.Items" 
               KeyExpression="x=>x.DataItem.CategoryId.ToString()" 
               TItem="Category">                
             </Tree>
@@ -107,6 +107,7 @@
         };
 
     public List<Product> Data = new List<Product>();
+
     // 页面记载
     protected override void OnInitialized()
     {
@@ -125,10 +126,21 @@
         //      new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,Items=new List<Category>()
         //     {
         //         new Category(){CategoryId=21,CategoryName="牙签",ParentId=2},
-        //         new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},               
+        //         new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},
         //     } },
         // };
     }
+
+    #region 分类树
+
+    // 选择树节点
+    void OnSelect(TreeEventArgs<Category> args)
+    {
+        Category selCa = args.Node.DataItem;
+        mbxList = _category.GetMBXList(selCa.CategoryId);
+    }
+
+    #endregion   
 
     #region 商品查询
 
