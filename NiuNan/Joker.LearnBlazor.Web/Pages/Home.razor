@@ -14,7 +14,7 @@
             Joker商品库
         </div>
         <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
-            <MenuItem Key="1" @onclick="open">新增商品</MenuItem>
+            <MenuItem Key="1" @onclick="Add">新增商品</MenuItem>
         </Menu>
     </Header>
     <Layout>
@@ -71,7 +71,9 @@
          <FormItem Label="商品图片">
              <Input @bind-Value="@context.ThumbnailImage" />
          </FormItem>
-
+         <FormItem Label="商品分类">
+             <Input @bind-Value="@context.CategoryId" />
+         </FormItem>
          <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
         </Form>
     </Drawer>
@@ -160,6 +162,7 @@
     // 打开抽屉
     void open()
     {
+
         this.visible = true;
     }
     // 关闭抽屉
@@ -195,6 +198,16 @@
     }
 
     /// <summary>
+    /// 点击新增按钮
+    /// </summary>
+    private void Add()
+    {
+        btnText = "新增";
+        model = new Product() { CategoryId = 0, ProductName = "", ThumbnailImage = "" };
+        this.visible = true;
+    }
+
+    /// <summary>
     /// 编辑按钮
     /// </summary>
     /// <param name="id"></param>
@@ -202,7 +215,7 @@
     {
         model = _product.GetModel(id);
         btnText = "编辑";
-        this.open();
+        this.visible = true;
     }
 
     /// <summary>
