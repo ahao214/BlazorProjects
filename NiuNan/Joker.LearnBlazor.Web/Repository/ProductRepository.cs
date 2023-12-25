@@ -29,9 +29,16 @@ namespace Joker.LearnBlazor.Web.Repository
             }            
         }
 
-        public List<Product> GetList()
+        public List<Product> GetList(string searchKey = "")
         {
-            return proList;
+            if(string .IsNullOrEmpty (searchKey))
+            {
+                return proList;
+            }
+            else
+            {
+                return proList.Where(p => p.ProductName.ToLower().Contains(searchKey.ToLower())).ToList();
+            }
         }
 
         public void Update(Product model)

@@ -32,7 +32,7 @@
                     </Breadcrumb>
                 </GridCol>
                 <GridCol Span="8">
-                    <Search Placeholder="请输入要查询的商品名称关键字" WrapperStyle="margin-top:10px;" AllowClear />
+                    <Search @bind-Value="@searchKey" OnSearch="SearchPro" Placeholder="请输入要查询的商品名称关键字" WrapperStyle="margin-top:10px;" AllowClear />
                 </GridCol>
             </GridRow>
             
@@ -91,7 +91,6 @@
 
     #endregion
 
-
     private ListGridType grid = new()
         {
             Gutter = 16,
@@ -124,6 +123,17 @@
             } },
         };
     }
+
+    #region 商品查询
+
+    private string searchKey = string.Empty;
+
+    private void SearchPro()
+    {
+        Data = _product.GetList(searchKey);    
+    }
+
+    #endregion
 
     #region 商品增 删 改
 

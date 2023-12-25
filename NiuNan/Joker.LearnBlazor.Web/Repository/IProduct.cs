@@ -10,7 +10,7 @@ namespace Joker.LearnBlazor.Web.Repository
         void Add(Product model);
         void Delete(int id);
         void Update(Product model);
-        List<Product> GetList();
+        List<Product> GetList(string searchKey="");
         Product GetModel(int id);
     }
 }
