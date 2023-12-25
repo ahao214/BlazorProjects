@@ -4,6 +4,7 @@
 @inject ICategory _category
 @inject IMessageService _message
 @inject IWebHostEnvironment _environment
+@inject NavigationManager _navManager
 
 @using Joker.LearnBlazor.WebService.Models
 @using Joker.LearnBlazor.WebService.Repository
@@ -18,7 +19,8 @@
         {
             <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
                 <MenuItem Key="1" @onclick="Add">新增商品</MenuItem>
-                <MenuItem Key="2" @onclick="@(()=>{isLogin=false;})">退出登录</MenuItem>
+                <MenuItem Key="2" @onclick="@(()=>{_navManager.NavigateTo("/category")})">分类管理</MenuItem>
+                <MenuItem Key="3" @onclick="@(()=>{isLogin=false;})">退出登录</MenuItem>
             </Menu>
         }
         else
