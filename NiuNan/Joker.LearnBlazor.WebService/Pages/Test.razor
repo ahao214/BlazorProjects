@@ -1,0 +1,54 @@
+﻿@page "/test"
+
+@using Joker.LearnBlazor.WebService.Models
+@using Joker.LearnBlazor.WebService.Repository
+
+<Button OnClick="InitDB">Init</Button>
+
+@msg
+@code {
+    string msg = "";
+
+    private void InitDB()
+    {
+        // SqlSugarHelper.Db.CodeFirst.InitTables<Product>();
+        // SqlSugarHelper.Db.CodeFirst.InitTables<Category>();
+        // msg = "初始化数据库成功";
+
+        List<Category> categories = new List<Category>()
+             {
+                 new Category(){ CategoryId=1,CategoryName="电子产",ParentId=0,CategoryPath
+                 =""},
+                 new Category (){ CategoryId=11,CategoryName="手机",ParentId=1,CategoryPath=",1,"},
+                 new Category (){ CategoryId=12,CategoryName="平板",ParentId=1,CategoryPath=",1,"},
+                 new Category (){ CategoryId=13,CategoryName="电脑",ParentId=1,CategoryPath=",1,"},
+                 new Category (){ CategoryId=131,CategoryName="苹果电脑",ParentId=13,CategoryPath=",1,13,131,"},
+
+                 new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,CategoryPath=""},
+                 new Category(){ CategoryId=21,CategoryName="抽纸",ParentId=2,CategoryPath=",2,"},
+                 new Category(){ CategoryId=22,CategoryName="牙签",ParentId=2,CategoryPath=",2,"},
+
+
+                  new Category(){ CategoryId=3,CategoryName="食品",ParentId=0,CategoryPath=""},
+                 new Category(){ CategoryId=31,CategoryName="饼干",ParentId=3,CategoryPath=",3,"},
+
+
+                     new Category(){ CategoryId=4,CategoryName="书籍",ParentId=0,CategoryPath=""},
+                 new Category(){ CategoryId=41,CategoryName="计算机",ParentId=4,CategoryPath=",4,"},
+
+             };
+
+        List<Product> proList = new List<Product>()
+            {
+                new Product(){ ProductId=1,ProductName="抽纸",ThumbnailImage="1.jpg",CategoryId=21},
+                new Product(){ ProductId=2,ProductName="饼干",ThumbnailImage="2.jpg",CategoryId=31},
+                new Product(){ ProductId=3,ProductName="蛋糕",ThumbnailImage="3.jpg",CategoryId=3},
+                new Product(){ ProductId=4,ProductName="Macbook",ThumbnailImage="4.jpg", CategoryId = 13},
+            };
+
+
+        SqlSugarHelper.Db.Insertable(proList).ExecuteCommand();
+
+    }
+
+}
