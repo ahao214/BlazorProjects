@@ -4,11 +4,6 @@ namespace Joker.LearnBlazor.WebService.Repository
 {
     public class CategoryRepositoryMssql : ICategory
     {
-        private readonly IProduct _product;
-        public CategoryRepositoryMssql(IProduct product)
-        {
-            _product = product;
-        }
 
         public void Add(Category model)
         {
