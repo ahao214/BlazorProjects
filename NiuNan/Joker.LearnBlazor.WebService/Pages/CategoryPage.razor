@@ -30,7 +30,7 @@
 
                                  </TreeSelect>
                              </FormItem>
-                             <Button Type="@ButtonType.Primary" HtmlType="submit">新增</Button>
+                             <Button Type="@ButtonType.Primary" HtmlType="submit" Icon="@IconType.Outline.Plus">新增</Button>
                          </Form>
                      </Body>
                  </Card>
@@ -38,14 +38,26 @@
              <SpaceItem>
                  <Card Title="编辑">
                      <Body>
-                         <p>Card Content</p>
+                         <p>
+                             <Input @bind-Value="@editModel.CategoryName"></Input>
+                         </p>
+                         <p>
+                             <Button Type="@ButtonType.Primary" OnClick="SubEdit" Icon="@IconType.Outline.Edit">编辑</Button>
+                         </p>
                      </Body>
                  </Card>
              </SpaceItem>
              <SpaceItem>
                  <Card Title="删除">
                      <Body>
-                         <p>Card Content</p>
+                         <p>
+                             待删除的分类:@delModel.CategoryName
+                         </p>
+                         <p>                            
+                            <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="SubDelete">
+                                <Button Danger Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
+                             </Popconfirm>
+                         </p>
                      </Body>
                  </Card>
              </SpaceItem>
@@ -94,6 +106,43 @@
 
     #endregion
 
+    #region 编辑名称
+
+    private Category editModel=new Category();
+
+    private void SubEdit()
+    {
+        Category ca = _category.GetModel(editModel.CategoryId);
+        ca.CategoryName = editModel.CategoryName;
+        _category.Update(ca);
+        _message.Info("编辑分类成功");
+        editModel = new Category();
+        BindData();
+    }
+
+    #endregion
+
+    #region 删除
+
+    private Category delModel = new Category();
+    private void SubDelete()
+    {
+        try
+        {
+            _category.Delete(delModel.CategoryId);
+            _message.Info("删除分类成功");
+            delModel = new Category();
+            BindData();
+        }
+        catch (Exception ex)
+        {
+            _message.Error("删除出错:" + ex.Message);
+        }
+
+    }
+
+    #endregion
+
     #region 分类树
 
     //商品分类
@@ -103,7 +152,8 @@
     void OnSelect(TreeEventArgs<Category> args)
     {
         Category selCa = args.Node.DataItem;
-
+        editModel = selCa;
+        delModel = selCa;
     }
 
     // 节点显示商品数
