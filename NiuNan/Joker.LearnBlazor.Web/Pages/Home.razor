@@ -72,7 +72,9 @@
              <Input @bind-Value="@context.ThumbnailImage" />
          </FormItem>
          <FormItem Label="商品分类">
-             <Input @bind-Value="@context.CategoryId" />
+             <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear Multiple TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
+
+             </TreeSelect>
          </FormItem>
          <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
         </Form>
@@ -94,6 +96,7 @@
     // 用于抽屉的显示隐藏
     bool visible = false;
 
+    private string selCaId = ""; // 选择的商品分类ID
 
     #endregion
 
@@ -159,12 +162,6 @@
 
     #region 商品增 删 改
 
-    // 打开抽屉
-    void open()
-    {
-
-        this.visible = true;
-    }
     // 关闭抽屉
     void close()
     {
@@ -178,6 +175,11 @@
     {
         Console.WriteLine("提交了,名称是:" + model.ProductName);
         string res = "";
+        int x = 0;
+        if (int.TryParse(selCaId, out x))
+        {
+            model.CategoryId = x;
+        }
         if (model.ProductId != 0)
         {
             // 编辑
