@@ -42,8 +42,8 @@
             <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
                 <AntList Grid="grid" DataSource="@Data">
                     <Card Bordered="false" Title="@(context.ProductName)">
-                        <Extra>
-                            <a @onclick="()=>HandleEdit(context.ProductId)">编辑</a>
+                        <Extra>                            
+                            <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
                         </Extra>
                         <Body>
                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
