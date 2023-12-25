@@ -4,6 +4,12 @@ namespace Joker.LearnBlazor.WebService.Repository
 {
     public class CategoryRepositoryMssql : ICategory
     {
+        private readonly IProduct _product;
+        public CategoryRepositoryMssql(IProduct product)
+        {
+            _product = product;
+        }
+
         public void Add(Category model)
         {
             SqlSugarHelper.Db.Insertable(model).ExecuteCommand();
@@ -11,12 +17,24 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public void Delete(int id)
         {
+            // 有下级的时候不能删除
+            int nextLevel = SqlSugarHelper.Db.Queryable<Category>().Where(c => c.ParentId == id).Count();
+            if (nextLevel > 0)
+            {
+                throw new Exception("该分类有下级,不可删除");
+            }
+            // 有商品的时候不能删除
+            int proCount = SqlSugarHelper.Db.Queryable<Product>().Where(p => p.CategoryId == id).Count();
+            if (proCount > 0)
+            {
+                throw new Exception("该分类有商品,不可删除");
+            }
             SqlSugarHelper.Db.Deleteable<Category>(a => a.CategoryId == id).ExecuteCommand();
         }
 
         public void Update(Category modle)
         {
-            SqlSugarHelper.Db.Updateable(modle).ExecuteCommand();   
+            SqlSugarHelper.Db.Updateable(modle).ExecuteCommand();
         }
 
         public List<Category> GetList()
