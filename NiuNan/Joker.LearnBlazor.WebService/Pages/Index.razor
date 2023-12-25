@@ -49,29 +49,32 @@
                  </GridCol>
              </GridRow>
 
-
-
-
              <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
-                 <AntList Grid="grid" DataSource="@Data">
-                     <Card Bordered="false" Title="@(context.ProductName)">
-                         <Extra>
-                             @if (isLogin)
-                            {
-                                <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
+                 <GridRow Gutter="(16,16)">
+                     
+                         @foreach (var item in Data)
+                        {
+                    <GridCol Span="6">
+                            <Card Bordered="false" Title="@(item.ProductName)">
+                                <Extra>
+                                    @if (isLogin)
+                                    {
+                                        <Button @onclick="()=>HandleEdit(item.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
 
-                                <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(context.ProductId)">
-                                    <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
-                                 </Popconfirm>
-                            }
+                                        <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(item.ProductId)">
+                                            <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
+                                         </Popconfirm>
+                                    }
 
-                        </Extra>
-                        <Body>
-                            <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
-                        </Body>
-                    </Card>
+                                </Extra>
+                                <Body>
+                                    <Image Src="@("/images/"+item.ThumbnailImage)" />
+                                </Body>
+                            </Card>
+                        </GridCol>
+                        }                    
+                </GridRow>
 
-                </AntList>
             </Content>
         </Layout>
     </Layout>
@@ -105,7 +108,7 @@
     </Drawer>
 
 
-   <Modal Title="登录" Visible="@loginWinVisible" OnOk="@Login" OnCancel="@(()=>{loginWinVisible=false;})">
+    <Modal Title="登录" Visible="@loginWinVisible" OnOk="@Login" OnCancel="@(()=>{loginWinVisible=false;})">
 
         <p>
             <Input Placeholder="请输入用户名" @bind-Value="@loginName" />
@@ -171,7 +174,7 @@
 
     private void Login()
     {
-        if(loginName=="admin" && loginPwd=="admin")
+        if (loginName == "admin" && loginPwd == "admin")
         {
             isLogin = true;
             loginWinVisible = false;
