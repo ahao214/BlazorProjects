@@ -1,6 +1,7 @@
 ﻿@page "/"
 
 @inject IProduct _product
+@inject IMessageService _message
 
 @using Joker.LearnBlazor.Web.Models
 @using Joker.LearnBlazor.Web.Repository
@@ -52,13 +53,27 @@
     </Layout>
 </Layout>
 
-<Drawer Closable="true" @bind-Visible="visible" Placement="right" Title='("Basic Drawer")' OnClose="_=>close()">
-    <p>Some contents...</p>
-    <p>Some contents...</p>
-    <p>Some contents...</p>
+<Drawer Closable="true" Width="400" @bind-Visible="visible" Placement="right" Title='@btnText' OnClose="_=>close()">
+    <Form Model="@model" OnFinish="HandleSubmit">
+        <FormItem Label="商品名称">
+            <Input @bind-Value="@context.ProductName" />
+        </FormItem>
+        <FormItem Label="商品图片">
+            <Input @bind-Value="@context.ThumbnailImage" />
+        </FormItem>
+
+        <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
+        </Form>
 </Drawer>
 
-@code{
+    @code{
+    #region
+    private string btnText = "新增";
+    private string res = "";
+    private Product model = new Product();
+
+    #endregion
+
     bool visible = false;
     private ListGridType grid = new()
         {
@@ -87,6 +102,26 @@
         this.visible = false;
     }
 
+    private void HandleSubmit()
+    {
+        Console.WriteLine("提交了,名称是:" + model.ProductName);
+        string res = "";
+        if (model.ProductId!=0)
+        {
+            // 编辑
+            _product.Update(model);
+            res = "编辑成功!!!";
+        }
+        else
+        {
+            // 新增
+            model.ProductId = new Random().Next(5, 10000);
+            _product.Add(model);
+            res = "新增成功!!!";
+        }
+        _message.Info(res);
+        this.close();
+    }
 }
 
 <style>
