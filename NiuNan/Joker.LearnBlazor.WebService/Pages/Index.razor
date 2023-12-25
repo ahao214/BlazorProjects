@@ -3,6 +3,7 @@
 @inject IProduct _product
 @inject ICategory _category
 @inject IMessageService _message
+@inject IWebHostEnvironment _environment
 
 @using Joker.LearnBlazor.WebService.Models
 @using Joker.LearnBlazor.WebService.Repository
@@ -68,9 +69,19 @@
          <FormItem Label="商品名称">
              <Input @bind-Value="@context.ProductName" />
          </FormItem>
+
          <FormItem Label="商品图片">
-             <Input @bind-Value="@context.ThumbnailImage" />
+             <InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />             <Upload Name="files" FileList="fileList">
+                 <label class="ant-btn" for="fileInput">
+                     <Icon Type="upload" />
+                     选择图片
+                 </label>
+             </Upload>
+
+
          </FormItem>
+
+
          <FormItem Label="商品分类">
              <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
 
@@ -89,6 +100,14 @@
     private List<Category> calist;
 
     private string btnText = "新增";
+
+    // 商品图片列表
+    List<UploadFileItem> fileList = new List<UploadFileItem>();
+    // 商品图片列表,原生的上传组件
+    IList<IBrowserFile> files = new List<IBrowserFile>();
+    private long maxFileSize = 1024 * 1024 * 15;   // 上传图片大小限制
+    private int maxAllowedFiles = 3;    //允许选择的图片数
+
 
     // 新增编辑所需要的模型
     private Product model = new Product();
@@ -113,13 +132,16 @@
 
     public List<Product> Data = new List<Product>();
 
-    // 页面记载
+    #region 页面加载
+
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Data = _product.GetList();
-        calist = _category.GetTreeModel();        
+        calist = _category.GetTreeModel();
     }
+
+    #endregion
 
     #region 分类树
 
@@ -136,6 +158,30 @@
     private string GetTreeTitle(Category ca)
     {
         return ca.CategoryName + "(商品数:" + _product.CalcCount(ca.CategoryId) + ")";
+    }
+
+    #endregion
+
+    #region 上传图片
+
+    private async Task UploadFiles(InputFileChangeEventArgs e)
+    {
+        foreach (var file in e.GetMultipleFiles())
+        {
+            try
+            {
+                files.Add(file);
+                var trustedFileNameForFileStorage = Guid.NewGuid().ToString().Substring(0, 6) + ".jpg";
+                var path = Path.Combine(_environment.ContentRootPath, "wwwroot", "images", trustedFileNameForFileStorage);
+                await using FileStream fs = new(path, FileMode.Create);
+                await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+            }
+            catch (Exception ex)
+            {
+                _message.Error("上传图片出错:" + ex.Message);
+            }
+        }
+        fileList = files.Select(file => new UploadFileItem { FileName = file.Name, Size = file.Size }).ToList();
     }
 
     #endregion
@@ -170,6 +216,10 @@
         if (int.TryParse(selCaId, out x))
         {
             model.CategoryId = x;
+        }
+        if (fileList.Count > 0)
+        {
+            model.ThumbnailImage = fileList[0].FileName;
         }
         if (model.ProductId != 0)
         {
