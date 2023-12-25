@@ -1,9 +1,270 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+@inject IProduct _product
+@inject ICategory _category
+@inject IMessageService _message
 
-<h1>Hello, world!</h1>
+@using Joker.LearnBlazor.WebService.Models
+@using Joker.LearnBlazor.WebService.Repository
 
-Welcome to your new app.
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+<Layout>
+    <Header Class="header">
+        <div class="JokerLogo">
+            Joker商品库
+        </div>
+        <Menu Theme="MenuTheme.Dark" Mode="MenuMode.Horizontal" DefaultSelectedKeys=@(new []{"2"})>
+            <MenuItem Key="1" @onclick="Add">新增商品</MenuItem>
+        </Menu>
+    </Header>
+    <Layout>
+        <Sider Width="250" Class="site-layout-background">
+            <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
+                  KeyExpression="x=>x.DataItem.CategoryId.ToString()"
+                  TItem="Category">
+            </Tree>
+        </Sider>
+        <Layout Style=" padding: 0 24px 24px;">
+            <GridRow>
+                <GridCol Span="16">
+                    <Breadcrumb Style="margin: 16px 0;">
+                        @foreach (var item in mbxList)
+                        {
+                            <BreadcrumbItem>@item</BreadcrumbItem>
+                        }
+                    </Breadcrumb>
+                </GridCol>
+                <GridCol Span="8">
+                    <Search @bind-Value="@searchKey" OnSearch="SearchPro" Placeholder="请输入要查询的商品名称关键字" WrapperStyle="margin-top:10px;" AllowClear />
+                 </GridCol>
+             </GridRow>
+
+
+
+
+             <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
+                 <AntList Grid="grid" DataSource="@Data">
+                     <Card Bordered="false" Title="@(context.ProductName)">
+                         <Extra>
+                             <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
+
+                             <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(context.ProductId)">
+                                 <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
+                             </Popconfirm>
+                         </Extra>
+                         <Body>
+                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
+                         </Body>
+                     </Card>
+
+                 </AntList>
+             </Content>
+         </Layout>
+     </Layout>
+ </Layout>
+
+ <Drawer Closable="true" Width="400" @bind-Visible="visible" Placement="right" Title='@btnText' OnClose="_=>close()">
+     <Form Model="@model" OnFinish="HandleSubmit">
+         <FormItem Label="商品名称">
+             <Input @bind-Value="@context.ProductName" />
+         </FormItem>
+         <FormItem Label="商品图片">
+             <Input @bind-Value="@context.ThumbnailImage" />
+         </FormItem>
+         <FormItem Label="商品分类">
+             <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
+
+             </TreeSelect>
+         </FormItem>
+         <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
+        </Form>
+    </Drawer>
+
+    @code {
+
+    #region 变量
+    //面包屑
+    private List<string> mbxList = new List<string>() { "分类1", "分类2", "分类3" };
+    //商品分类
+    private List<Category> calist;
+
+    private string btnText = "新增";
+
+    // 新增编辑所需要的模型
+    private Product model = new Product();
+
+    // 用于抽屉的显示隐藏
+    bool visible = false;
+
+    private string selCaId = ""; // 选择的商品分类ID
+
+    #endregion
+
+    private ListGridType grid = new()
+        {
+            Gutter = 16,
+            Xs = 4,
+            Sm = 4,
+            Md = 4,
+            Lg = 4,
+            Xl = 4,
+            Xxl = 4,
+        };
+
+    public List<Product> Data = new List<Product>();
+
+    // 页面记载
+    protected override void OnInitialized()
+    {
+        base.OnInitialized();
+        Data = _product.GetList();
+        calist = _category.GetTreeModel();
+
+        // calist = new List<Category>()
+        // {
+        //     new Category(){ CategoryId=1,CategoryName="电子产品",ParentId=0,Items=new List<Category>()
+        //     {
+        //         new Category(){CategoryId=11,CategoryName="手机",ParentId=1},
+        //         new Category(){CategoryId=12,CategoryName="电脑",ParentId=1},
+        //         new Category(){CategoryId=13,CategoryName="平板",ParentId=1},
+        //     } },
+        //      new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,Items=new List<Category>()
+        //     {
+        //         new Category(){CategoryId=21,CategoryName="牙签",ParentId=2},
+        //         new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},
+        //     } },
+        // };
+    }
+
+    #region 分类树
+
+    // 选择树节点
+    void OnSelect(TreeEventArgs<Category> args)
+    {
+        Category selCa = args.Node.DataItem;
+        mbxList = _category.GetMBXList(selCa.CategoryId);
+
+        Data = _product.GetListByCaId(selCa.CategoryId);
+    }
+
+    // 节点显示商品数
+    private string GetTreeTitle(Category ca)
+    {
+        return ca.CategoryName + "(商品数:" + _product.CalcCount(ca.CategoryId) + ")";
+    }
+
+    #endregion
+
+    #region 商品查询
+
+    private string searchKey = string.Empty;
+
+    private void SearchPro()
+    {
+        Data = _product.GetList(searchKey);
+    }
+
+    #endregion
+
+    #region 商品增 删 改
+
+    // 关闭抽屉
+    void close()
+    {
+        this.visible = false;
+    }
+
+    /// <summary>
+    /// 新增编辑功能
+    /// </summary>
+    private void HandleSubmit()
+    {
+        Console.WriteLine("提交了,名称是:" + model.ProductName);
+        string res = "";
+        int x = 0;
+        if (int.TryParse(selCaId, out x))
+        {
+            model.CategoryId = x;
+        }
+        if (model.ProductId != 0)
+        {
+            // 编辑
+            _product.Update(model);
+            res = "编辑成功!!!";
+        }
+        else
+        {
+            // 新增
+            model.ProductId = new Random().Next(5, 10000);
+            _product.Add(model);
+            res = "新增成功!!!";
+        }
+        // 清空文本框
+        model = new Product();
+        _message.Info(res);
+        this.close();
+    }
+
+    /// <summary>
+    /// 点击新增按钮
+    /// </summary>
+    private void Add()
+    {
+        btnText = "新增";
+        model = new Product() { CategoryId = 0, ProductName = "", ThumbnailImage = "" };
+        this.visible = true;
+        selCaId = "";
+    }
+
+    /// <summary>
+    /// 编辑按钮
+    /// </summary>
+    /// <param name="id"></param>
+    private void HandleEdit(int id)
+    {
+        model = _product.GetModel(id);
+        btnText = "编辑";
+        this.visible = true;
+        selCaId = model.CategoryId.ToString();
+    }
+
+    /// <summary>
+    /// 删除商品
+    /// </summary>
+    /// <param name="id"></param>
+    private void DeletePro(int id)
+    {
+        _product.Delete(id);
+    }
+
+    #endregion
+}
+
+<style>
+    #components-layout-demo-top-side-2 .logo {
+        width: 120px;
+        height: 31px;
+        background: rgba(255, 255, 255, 0.2);
+        margin: 16px 28px 16px 0;
+        float: left;
+    }
+
+    .site-layout-background {
+        background: #fff;
+    }
+
+    .JokerLogo {
+        color: white;
+        font-size: 22px;
+        width: 200px;
+        float: left;
+        font-weight: bold;
+    }
+
+    .ant-btn .anticon {
+        margin-top: -4px;
+        vertical-align: middle;
+    }
+
+</style>
+
