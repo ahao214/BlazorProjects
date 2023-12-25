@@ -24,10 +24,21 @@
             </Tree>
         </Sider>
         <Layout Style=" padding: 0 24px 24px;">
-            <Breadcrumb Style="margin: 16px 0;">
-                <BreadcrumbItem>电子产品</BreadcrumbItem>
-                <BreadcrumbItem>手机</BreadcrumbItem>
-            </Breadcrumb>
+            <GridRow>
+                <GridCol Span="16">
+                    <Breadcrumb Style="margin: 16px 0;">
+                        <BreadcrumbItem>电子产品</BreadcrumbItem>
+                        <BreadcrumbItem>手机</BreadcrumbItem>
+                    </Breadcrumb>
+                </GridCol>
+                <GridCol Span="8">
+                    <Search Placeholder="请输入要查询的商品名称关键字" WrapperStyle="margin-top:10px;" AllowClear />
+                </GridCol>
+            </GridRow>
+            
+
+           
+
             <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
                 <AntList Grid="grid" DataSource="@Data">
                     <Card Bordered="false" Title="@(context.ProductName)">
