@@ -34,7 +34,9 @@
                         <Extra>                            
                             <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
 
-                            <Button @onclick="()=>DeletePro(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
+                            <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(context.ProductId)">
+                                <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
+                             </Popconfirm>
                         </Extra>
                         <Body>
                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
