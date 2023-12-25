@@ -19,60 +19,60 @@
     </Header>
     <Layout>
         <Sider Width="200" Class="site-layout-background">
-            <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>x.DataItem.CategoryName" ChildrenExpression="x=>x.DataItem.Items" 
-              KeyExpression="x=>x.DataItem.CategoryId.ToString()" 
-              TItem="Category">                
+            <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>x.DataItem.CategoryName" ChildrenExpression="x=>x.DataItem.Items"
+                  KeyExpression="x=>x.DataItem.CategoryId.ToString()"
+                  TItem="Category">
             </Tree>
         </Sider>
         <Layout Style=" padding: 0 24px 24px;">
             <GridRow>
                 <GridCol Span="16">
                     <Breadcrumb Style="margin: 16px 0;">
-                        @foreach(var item in mbxList)
+                        @foreach (var item in mbxList)
                         {
                             <BreadcrumbItem>@item</BreadcrumbItem>
-                        }                        
+                        }
                     </Breadcrumb>
                 </GridCol>
                 <GridCol Span="8">
                     <Search @bind-Value="@searchKey" OnSearch="SearchPro" Placeholder="请输入要查询的商品名称关键字" WrapperStyle="margin-top:10px;" AllowClear />
-                </GridCol>
-            </GridRow>
-            
+                 </GridCol>
+             </GridRow>
 
-           
 
-            <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
-                <AntList Grid="grid" DataSource="@Data">
-                    <Card Bordered="false" Title="@(context.ProductName)">
-                        <Extra>                            
-                            <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
 
-                            <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(context.ProductId)">
-                                <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
+
+             <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
+                 <AntList Grid="grid" DataSource="@Data">
+                     <Card Bordered="false" Title="@(context.ProductName)">
+                         <Extra>
+                             <Button @onclick="()=>HandleEdit(context.ProductId)" Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Edit">编辑</Button>
+
+                             <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="()=>DeletePro(context.ProductId)">
+                                 <Button Danger Size="small" Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
                              </Popconfirm>
-                        </Extra>
-                        <Body>
-                            <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
-                        </Body>
-                    </Card>
+                         </Extra>
+                         <Body>
+                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
+                         </Body>
+                     </Card>
 
-                </AntList>
-            </Content>
-        </Layout>
-    </Layout>
-</Layout>
+                 </AntList>
+             </Content>
+         </Layout>
+     </Layout>
+ </Layout>
 
-<Drawer Closable="true" Width="400" @bind-Visible="visible" Placement="right" Title='@btnText' OnClose="_=>close()">
-    <Form Model="@model" OnFinish="HandleSubmit">
-        <FormItem Label="商品名称">
-            <Input @bind-Value="@context.ProductName" />
-        </FormItem>
-        <FormItem Label="商品图片">
-            <Input @bind-Value="@context.ThumbnailImage" />
-        </FormItem>
+ <Drawer Closable="true" Width="400" @bind-Visible="visible" Placement="right" Title='@btnText' OnClose="_=>close()">
+     <Form Model="@model" OnFinish="HandleSubmit">
+         <FormItem Label="商品名称">
+             <Input @bind-Value="@context.ProductName" />
+         </FormItem>
+         <FormItem Label="商品图片">
+             <Input @bind-Value="@context.ThumbnailImage" />
+         </FormItem>
 
-        <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
+         <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
         </Form>
     </Drawer>
 
@@ -138,9 +138,11 @@
     {
         Category selCa = args.Node.DataItem;
         mbxList = _category.GetMBXList(selCa.CategoryId);
+
+        Data = _product.GetListByCaId(selCa.CategoryId);
     }
 
-    #endregion   
+    #endregion
 
     #region 商品查询
 
@@ -148,7 +150,7 @@
 
     private void SearchPro()
     {
-        Data = _product.GetList(searchKey);    
+        Data = _product.GetList(searchKey);
     }
 
     #endregion
@@ -184,7 +186,7 @@
             // 新增
             model.ProductId = new Random().Next(5, 10000);
             _product.Add(model);
-            res = "新增成功!!!";            
+            res = "新增成功!!!";
         }
         // 清空文本框
         model = new Product();
@@ -236,9 +238,9 @@
         font-weight: bold;
     }
 
-    .ant-btn .anticon{
-        margin-top:-4px;
-        vertical-align:middle;
+    .ant-btn .anticon {
+        margin-top: -4px;
+        vertical-align: middle;
     }
 
 </style>

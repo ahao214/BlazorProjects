@@ -15,11 +15,19 @@ namespace Joker.LearnBlazor.Web.Repository
                  new Category (){ CategoryId=11,CategoryName="手机",ParentId=1,CategoryPath=",1,"},
                  new Category (){ CategoryId=12,CategoryName="平板",ParentId=1,CategoryPath=",1,"},
                  new Category (){ CategoryId=13,CategoryName="电脑",ParentId=1,CategoryPath=",1,"},
-                 new Category (){ CategoryId=131,CategoryName="联想电脑",ParentId=13,CategoryPath=",1,13,"},
+                 new Category (){ CategoryId=131,CategoryName="苹果电脑",ParentId=13,CategoryPath=",1,13,131,"},
 
                  new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,CategoryPath=""},
                  new Category(){ CategoryId=21,CategoryName="抽纸",ParentId=2,CategoryPath=",2,"},
                  new Category(){ CategoryId=22,CategoryName="牙签",ParentId=2,CategoryPath=",2,"},
+
+
+                  new Category(){ CategoryId=3,CategoryName="食品",ParentId=0,CategoryPath=""},
+                 new Category(){ CategoryId=31,CategoryName="饼干",ParentId=3,CategoryPath=",3,"},
+
+
+                     new Category(){ CategoryId=4,CategoryName="书籍",ParentId=0,CategoryPath=""},
+                 new Category(){ CategoryId=41,CategoryName="计算机",ParentId=4,CategoryPath=",4,"},
 
              };
         }

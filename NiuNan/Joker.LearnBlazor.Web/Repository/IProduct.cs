@@ -12,5 +12,7 @@ namespace Joker.LearnBlazor.Web.Repository
         void Update(Product model);
         List<Product> GetList(string searchKey="");
         Product GetModel(int id);
+
+        List<Product> GetListByCaId(int caid);
     }
 }
