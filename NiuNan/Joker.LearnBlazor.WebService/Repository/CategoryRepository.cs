@@ -3,7 +3,7 @@ using OneOf;
 
 namespace Joker.LearnBlazor.WebService.Repository
 {
-    public class CategoryRepository : ICategory
+    public class CategoryRepository 
     {
         private List<Category> categories = new List<Category>();
 
@@ -31,6 +31,16 @@ namespace Joker.LearnBlazor.WebService.Repository
                  new Category(){ CategoryId=41,CategoryName="计算机",ParentId=4,CategoryPath=",4,"},
 
              };
+        }
+
+        public void Add(Category model)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Delete(int id)
+        {
+            throw new NotImplementedException();
         }
 
         public List<Category> GetList()
@@ -73,6 +83,11 @@ namespace Joker.LearnBlazor.WebService.Repository
                 list.Add(oneca);
             }
             return list;
+        }
+
+        public void Update(Category modle)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
