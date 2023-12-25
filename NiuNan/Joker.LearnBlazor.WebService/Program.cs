@@ -12,8 +12,8 @@ builder.Services.AddSingleton<WeatherForecastService>();
 
 
 // ×¢Èë
-builder.Services.AddSingleton<IProduct, ProductRepository>();
-builder.Services.AddSingleton<ICategory, CategoryRepository>();
+builder.Services.AddSingleton<IProduct, ProductRepositoryMssql>();
+builder.Services.AddSingleton<ICategory, CategoryRepositoryMssql>();
 
 // ×¢²áAntDesign
 builder.Services.AddAntDesign();
