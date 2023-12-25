@@ -18,20 +18,9 @@
     </Header>
     <Layout>
         <Sider Width="200" Class="site-layout-background">
-            <Tree TItem="string" DefaultExpandAll="true">
-                <TreeNode Title="parent 1" Key="0-0" TItem="string">
-                    <TreeNode Title="parent 1-0" Key="0-0-0" TItem="string">
-                        <TreeNode Title="leaf" Key="0-0-0-0" TItem="string"></TreeNode>
-                        <TreeNode Title="leaf" Key="0-0-0-1" TItem="string"></TreeNode>
-                    </TreeNode>
-                    <TreeNode Title="parent 1-1" Key="0-0-1" TItem="string">
-                        <TreeNode Key="0-0-1-0" TItem="string">
-                            <TitleTemplate>
-                                <span style="color: #1890ff; ">sss</span>
-                            </TitleTemplate>
-                        </TreeNode>
-                    </TreeNode>
-                </TreeNode>
+            <Tree DefaultExpandAll="true" DataSource="calist" TitleExpression="x=>x.DataItem.CategoryName" ChildrenExpression="x=>x.DataItem.Items" 
+              KeyExpression="x=>x.DataItem.CategoryId.ToString()" 
+              TItem="Category">                
             </Tree>
         </Sider>
         <Layout Style=" padding: 0 24px 24px;">
@@ -71,13 +60,22 @@
 
     @code {
     #region
+
+    //商品分类
+    private List<Category> calist;
+
     private string btnText = "新增";
-    private string res = "";
+
+    // 新增编辑所需要的模型
     private Product model = new Product();
+
+    // 用于抽屉的显示隐藏
+    bool visible = false;
+
 
     #endregion
 
-    bool visible = false;
+
     private ListGridType grid = new()
         {
             Gutter = 16,
@@ -90,23 +88,40 @@
         };
 
     public List<Product> Data = new List<Product>();
+    // 页面记载
     protected override void OnInitialized()
     {
         base.OnInitialized();
         Data = _product.GetList();
-    }
+        calist = new List<Category>()
+        {
+            new Category(){ CategoryId=1,CategoryName="电子产品",ParentId=0,Items=new List<Category>()
+            {
+                new Category(){CategoryId=11,CategoryName="手机",ParentId=1},
+                new Category(){CategoryId=12,CategoryName="电脑",ParentId=1},
+                new Category(){CategoryId=13,CategoryName="平板",ParentId=1},
+            } },
+             new Category(){ CategoryId=2,CategoryName="生活用品",ParentId=0,Items=new List<Category>()
+            {
+                new Category(){CategoryId=21,CategoryName="牙签",ParentId=2},
+                new Category(){CategoryId=22,CategoryName="抽纸",ParentId=2},               
+            } },
+        };
 
+    }
+    // 打开抽屉
     void open()
     {
         this.visible = true;
     }
+    // 关闭抽屉
     void close()
     {
         this.visible = false;
     }
 
     /// <summary>
-    /// 新增按钮
+    /// 新增编辑功能
     /// </summary>
     private void HandleSubmit()
     {
