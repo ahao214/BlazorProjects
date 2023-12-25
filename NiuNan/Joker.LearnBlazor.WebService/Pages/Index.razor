@@ -175,13 +175,13 @@
                 var path = Path.Combine(_environment.ContentRootPath, "wwwroot", "images", trustedFileNameForFileStorage);
                 await using FileStream fs = new(path, FileMode.Create);
                 await file.OpenReadStream(maxFileSize).CopyToAsync(fs);
+                fileList.Add(new UploadFileItem() { FileName = trustedFileNameForFileStorage, Size = file.Size });
             }
             catch (Exception ex)
             {
                 _message.Error("上传图片出错:" + ex.Message);
             }
-        }
-        fileList = files.Select(file => new UploadFileItem { FileName = file.Name, Size = file.Size }).ToList();
+        }     
     }
 
     #endregion
@@ -249,6 +249,7 @@
         model = new Product() { CategoryId = 0, ProductName = "", ThumbnailImage = "" };
         this.visible = true;
         selCaId = "";
+        fileList.Clear();
     }
 
     /// <summary>
@@ -261,6 +262,8 @@
         btnText = "编辑";
         this.visible = true;
         selCaId = model.CategoryId.ToString();
+        fileList.Clear();
+        fileList.Add(new UploadFileItem() { FileName = model.ThumbnailImage });
     }
 
     /// <summary>
