@@ -43,7 +43,7 @@
                 <AntList Grid="grid" DataSource="@Data">
                     <Card Bordered="false" Title="@(context.ProductName)">
                         <Extra>
-                            <a @onclick="()=>Edit(context.ProductId)">编辑</a>
+                            <a @onclick="()=>HandleEdit(context.ProductId)">编辑</a>
                         </Extra>
                         <Body>
                             <Image Width="400px" Src="@("/images/"+context.ThumbnailImage)" />
@@ -135,7 +135,7 @@
     /// 编辑按钮
     /// </summary>
     /// <param name="id"></param>
-    private void Edit(int id)
+    private void HandleEdit(int id)
     {
         model = _product.GetModel(id);
         btnText = "编辑";
