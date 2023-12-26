@@ -24,6 +24,11 @@ namespace Joker.LearnBlazor.WebService.Repository
         /// <returns></returns>
         public int CalcCount(int caid)
         {
+            if(caid==0)
+            {
+                // 查询全部
+                return SqlSugarHelper.Db.Queryable<Product>().Count();  
+            }
             Category ca = _category.GetModel(caid);
             string tmp = string.Empty;
             if (ca.ParentId == 0)

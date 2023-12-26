@@ -39,6 +39,13 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public List<string> GetMBXList(int caid)
         {
+            if (caid == 0)
+            {
+                return new List<string>()
+                {
+                    "全部商品"
+                };
+            }
             List<string> list = new List<string>();
             Category ca = GetModel(caid);
             string[] caids = ca.CategoryPath.Split(',');
@@ -65,7 +72,7 @@ namespace Joker.LearnBlazor.WebService.Repository
             List<Category> categories = GetList();
             List<Category> list = new List<Category>();
             // 取出父级节点
-            var top = categories.Where(ca => ca.ParentId == 0).OrderBy(ca=>ca.Sort).ToList();
+            var top = categories.Where(ca => ca.ParentId == 0).OrderBy(ca => ca.Sort).ToList();
             foreach (var oneca in top)
             {
                 oneca.Items.Clear();
@@ -83,7 +90,7 @@ namespace Joker.LearnBlazor.WebService.Repository
         /// <param name="model"></param>
         private void Digui(Category model, List<Category> categories)
         {
-            var sub = categories.Where(ca => ca.ParentId == model.CategoryId).OrderBy(ca=>ca.Sort).ToList();
+            var sub = categories.Where(ca => ca.ParentId == model.CategoryId).OrderBy(ca => ca.Sort).ToList();
             foreach (var ca in sub)
             {
                 ca.Items.Clear();

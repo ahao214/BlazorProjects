@@ -220,15 +220,30 @@
     protected override void OnInitialized()
     {
         base.OnInitialized();
+        BindTree();
         BindData();
     }
+
     // 查询商品和分类绑定到Data和calist上
     private void BindData()
     {
         total=_product.CalcCountPage(searchKey,searchSelCaId);
-
         Data = _product.GetListPage(searchKey, searchSelCaId, pageSize, pageIndex);
-        calist = _category.GetTreeModel();
+    }
+
+    #endregion
+
+    #region 绑定树
+
+    private void BindTree()
+    {
+        List<Category> tmpList = _category.GetTreeModel();
+        List<Category> allList = new List<Category>()
+        {
+            new Category(){ CategoryId=0, CategoryName="全部商品",CategoryPath="", Items=tmpList}
+        };
+
+        calist = allList;
     }
 
     #endregion
@@ -238,11 +253,13 @@
     // 选择树节点
     void OnSelect(TreeEventArgs<Category> args)
     {
+        pageIndex = 1;
         Category selCa = args.Node.DataItem;
         searchSelCaId = selCa.CategoryId;
         mbxList = _category.GetMBXList(selCa.CategoryId);
 
-        Data = _product.GetListByCaId(selCa.CategoryId);
+        //Data = _product.GetListByCaId(selCa.CategoryId);
+        BindData();
     }
 
     // 节点显示商品数
@@ -284,7 +301,8 @@
     private void SearchPro()
     {
         mbxList = new List<string>() { "查询结果" };
-        Data = _product.GetList(searchKey);
+        //Data = _product.GetList(searchKey);
+        BindData();
     }
 
     #endregion
