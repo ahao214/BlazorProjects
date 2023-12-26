@@ -84,7 +84,7 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public Product GetModel(int id)
         {
-            return SqlSugarHelper.Db.Queryable<Product>().Single(pro => pro.ProductId == id);
+            return SqlSugarHelper.Db.Queryable<Product>().Includes(a=>a.Images).Single(pro => pro.ProductId == id);
         }
 
         public void Update(Product model)

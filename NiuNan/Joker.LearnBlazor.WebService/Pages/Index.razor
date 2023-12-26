@@ -28,7 +28,7 @@
         }
 
     </Header>
-    <Layout >
+    <Layout>
         <Sider Width="250" Class="site-layout-background">
             <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
                   KeyExpression="x=>x.DataItem.CategoryId.ToString()"
@@ -52,10 +52,10 @@
 
              <Content Class="site-layout-background" Style=" padding: 24px; margin: 0; min-height: 280px;">
                  <GridRow Gutter="(16,16)">
-                     
-                         @foreach (var item in Data)
-                        {
-                    <GridCol Span="6">
+
+                     @foreach (var item in Data)
+                    {
+                        <GridCol Span="6">
                             <Card Bordered="false" Title="@(item.ProductName)">
                                 <Extra>
                                     @if (isLogin)
@@ -73,7 +73,7 @@
                                 </Body>
                             </Card>
                         </GridCol>
-                        }                    
+                    }
                 </GridRow>
 
                 <GridRow>
@@ -133,7 +133,7 @@
 
     private int pageIndex = 1;  //当前第几页
     private int pageSize = 2;   //每页显示几行数据
-    private int total =0;       //总记录数
+    private int total = 0;       //总记录数
 
     // 当前选择的分类ID,默认是0
     private int searchSelCaId = 0;
@@ -208,7 +208,7 @@
     private void PageChange(PaginationEventArgs args)
     {
         pageIndex = args.Page;
-        pageSize= args.PageSize;
+        pageSize = args.PageSize;
         BindData();
     }
 
@@ -227,7 +227,7 @@
     // 查询商品和分类绑定到Data和calist上
     private void BindData()
     {
-        total=_product.CalcCountPage(searchKey,searchSelCaId);
+        total = _product.CalcCountPage(searchKey, searchSelCaId);
         Data = _product.GetListPage(searchKey, searchSelCaId, pageSize, pageIndex);
     }
 
@@ -318,7 +318,7 @@
     /// <summary>
     /// 新增编辑功能
     /// </summary>
-    private  void HandleSubmit()
+    private void HandleSubmit()
     {
         Console.WriteLine("提交了,名称是:" + model.ProductName);
         string res = "";
@@ -330,6 +330,11 @@
         if (fileList.Count > 0)
         {
             model.ThumbnailImage = fileList[0].FileName;
+            model.Images = new List<ProductImages>();
+            foreach (var item in fileList)
+            {
+                model.Images.Add(new ProductImages() { Title = item.FileName });
+            }
         }
         if (model.ProductId != 0)
         {
@@ -375,7 +380,11 @@
         this.visible = true;
         selCaId = model.CategoryId.ToString();
         fileList.Clear();
-        fileList.Add(new UploadFileItem() { FileName = model.ThumbnailImage });
+
+        foreach (var item in model.Images )
+        {
+            fileList.Add(new UploadFileItem() { FileName = item.Title });
+        }        
     }
 
     /// <summary>
