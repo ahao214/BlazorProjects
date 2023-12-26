@@ -69,7 +69,7 @@
 
                                 </Extra>
                                 <Body>
-                                    <Image Src="@("/images/"+item.ThumbnailImage)" />
+                                    <Image PreviewVisible="false" OnClick="()=>openDetail(item.ProductId)" Src="@("/images/"+item.ThumbnailImage)" />
                                 </Body>
                             </Card>
                         </GridCol>
@@ -137,6 +137,23 @@
     </Modal>
 
 
+    <Modal Title="商品详情" Footer=null MaxBodyHeight="@("50vh")" Width="@("50vw")"
+    Visible="@detailWinVisible" OnCancel="@(()=>{detailWinVisible=false;})">
+        <Descriptions Title="@detailModel.ProductName">
+            <DescriptionsItem Title="Id">@detailModel.ProductId</DescriptionsItem>
+            <DescriptionsItem Title="条码">@detailModel.Code</DescriptionsItem>
+            <DescriptionsItem Title="分类">@detailModel.Category.CategoryName</DescriptionsItem>
+            <DescriptionsItem Title="品牌">@detailModel.BrandName</DescriptionsItem>
+            <DescriptionsItem Title="单位">@detailModel.Unit</DescriptionsItem>
+            <DescriptionsItem Title="单价">@detailModel.UnitPrice</DescriptionsItem>
+            <DescriptionsItem Title="使用感受">@detailModel.UseFell</DescriptionsItem>
+            <DescriptionsItem Title="创建时间">@detailModel.CreatedTime.ToString("yyyy-MM-dd hh:mm")</DescriptionsItem>
+            <DescriptionsItem Title="最后更新时间">@detailModel.LastUpdateTime.ToString("yyyy-MM-dd hh:mm")</DescriptionsItem>
+        </Descriptions>
+        
+
+    </Modal>
+
     @code {
 
     #region 变量
@@ -148,6 +165,9 @@
     // 当前选择的分类ID,默认是0
     private int searchSelCaId = 0;
 
+    // 是否显示商品详情页面
+    private bool detailWinVisible = false;
+    private Product detailModel = new Product();
 
     // 是否登录
     private bool isLogin = false;
@@ -194,6 +214,15 @@
 
     #endregion
 
+    #region 商品详情
+
+    private void openDetail(int proId)
+    {
+        detailModel = _product.GetModel(proId);
+        detailWinVisible = true;
+    }
+
+    #endregion
 
     #region 登录方法
 

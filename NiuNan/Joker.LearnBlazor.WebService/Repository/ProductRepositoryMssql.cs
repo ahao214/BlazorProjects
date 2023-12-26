@@ -28,10 +28,10 @@ namespace Joker.LearnBlazor.WebService.Repository
         /// <returns></returns>
         public int CalcCount(int caid)
         {
-            if(caid==0)
+            if (caid == 0)
             {
                 // 查询全部
-                return SqlSugarHelper.Db.Queryable<Product>().Count();  
+                return SqlSugarHelper.Db.Queryable<Product>().Count();
             }
             Category ca = _category.GetModel(caid);
             string tmp = string.Empty;
@@ -84,13 +84,13 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public Product GetModel(int id)
         {
-            return SqlSugarHelper.Db.Queryable<Product>().Includes(a=>a.Images).Single(pro => pro.ProductId == id);
+            return SqlSugarHelper.Db.Queryable<Product>().Includes(a => a.Category).Includes(a => a.Images).Single(pro => pro.ProductId == id);
         }
 
         public void Update(Product model)
         {
             List<Product> tmpList = new List<Product>();
-            tmpList .Add(model);
+            tmpList.Add(model);
             SqlSugarHelper.Db.UpdateNav<Product>(tmpList).Include(a => a.Images).ExecuteCommand();
 
             //SqlSugarHelper.Db.Updateable(model).ExecuteCommand();
@@ -98,8 +98,8 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public List<Product> GetListPage(string searchKey = "", int caId = 0, int pageSize = 8, int pageIndex = 1)
         {
-            var q = SqlSugarHelper.Db.Queryable<Product>().Where (pro=>pro.ProductName.Contains(searchKey));
-            if(caId !=0)
+            var q = SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.ProductName.Contains(searchKey));
+            if (caId != 0)
             {
                 Category ca = _category.GetModel(caId);
                 string tmp = string.Empty;
@@ -114,7 +114,7 @@ namespace Joker.LearnBlazor.WebService.Repository
                 }
                 q = q.Where(pro => pro.CategoryId == caId || pro.Category.CategoryPath.StartsWith(tmp));
             }
-            return q.Skip ((pageIndex-1)* pageSize).Take(pageSize).ToList();
+            return q.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
         }
 
