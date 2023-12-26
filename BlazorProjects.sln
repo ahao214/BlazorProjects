@@ -15,6 +15,14 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joker.LearnBlazor.Web", "Ni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joker.LearnBlazor.WebService", "NiuNan\Joker.LearnBlazor.WebService\Joker.LearnBlazor.WebService.csproj", "{1B1A61B3-BDA0-4DF7-A6B9-D9EBB9FB7689}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEcommerce.Server", "BazingaZexus\BlazorEcommerce\Server\BlazorEcommerce.Server.csproj", "{E554ED29-B9C1-4645-8A78-E0AB6C80C970}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEcommerce.Client", "BazingaZexus\BlazorEcommerce\Client\BlazorEcommerce.Client.csproj", "{C0FF57F7-9F45-4277-9E13-093C74AC7536}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEcommerce.Shared", "BazingaZexus\BlazorEcommerce\Shared\BlazorEcommerce.Shared.csproj", "{0688321D-C67D-43EC-A230-3CF823787CF0}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrayJunZi", "GrayJunZi", "{781DE4C6-5083-4F5B-BD62-87F16CC84C69}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +41,18 @@ Global
 		{1B1A61B3-BDA0-4DF7-A6B9-D9EBB9FB7689}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1B1A61B3-BDA0-4DF7-A6B9-D9EBB9FB7689}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1B1A61B3-BDA0-4DF7-A6B9-D9EBB9FB7689}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E554ED29-B9C1-4645-8A78-E0AB6C80C970}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E554ED29-B9C1-4645-8A78-E0AB6C80C970}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E554ED29-B9C1-4645-8A78-E0AB6C80C970}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E554ED29-B9C1-4645-8A78-E0AB6C80C970}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C0FF57F7-9F45-4277-9E13-093C74AC7536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C0FF57F7-9F45-4277-9E13-093C74AC7536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C0FF57F7-9F45-4277-9E13-093C74AC7536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C0FF57F7-9F45-4277-9E13-093C74AC7536}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0688321D-C67D-43EC-A230-3CF823787CF0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0688321D-C67D-43EC-A230-3CF823787CF0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0688321D-C67D-43EC-A230-3CF823787CF0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0688321D-C67D-43EC-A230-3CF823787CF0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +61,9 @@ Global
 		{DDDB059A-F1BB-431B-974A-A69BB44CF59A} = {E4DDF1CF-9873-469C-98BA-09818E690CA6}
 		{39AFF94D-41E2-4FC8-A6D5-5B80A2F1B4FD} = {A8ECE244-F395-4984-9FA3-419370880467}
 		{1B1A61B3-BDA0-4DF7-A6B9-D9EBB9FB7689} = {A8ECE244-F395-4984-9FA3-419370880467}
+		{E554ED29-B9C1-4645-8A78-E0AB6C80C970} = {E363151B-C41E-4622-9905-4D31F3FBAAD1}
+		{C0FF57F7-9F45-4277-9E13-093C74AC7536} = {E363151B-C41E-4622-9905-4D31F3FBAAD1}
+		{0688321D-C67D-43EC-A230-3CF823787CF0} = {E363151B-C41E-4622-9905-4D31F3FBAAD1}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {36A31882-568E-4CDB-9027-2E1A7A525B86}
