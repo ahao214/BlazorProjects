@@ -1,4 +1,6 @@
-﻿namespace Joker.LearnBlazor.WebService.Models
+﻿using SqlSugar;
+
+namespace Joker.LearnBlazor.WebService.Models
 {
     /// <summary>
     /// 商品图片
@@ -8,6 +10,7 @@
         /// <summary>
         /// 主键自增
         /// </summary>
+        [SugarColumn(IsPrimaryKey = true, IsIdentity = true)]
         public int ImageId { get; set; }
         /// <summary>
         /// 商品ID
