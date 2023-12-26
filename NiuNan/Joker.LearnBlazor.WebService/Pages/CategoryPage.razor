@@ -86,7 +86,21 @@
     {
         Category nowCa = e.Node.DataItem;
         Category targetCa = e.TargetNode.DataItem;  // 拖动到该节点的底部
-
+        if(e.DropBelow == true)
+        {
+            // 同一级,下方
+            nowCa.ParentId = targetCa.ParentId;
+            nowCa.Sort = targetCa.Sort + 1;
+        }
+        else
+        {
+            // 下一级
+            nowCa.ParentId = targetCa.CategoryId;
+            nowCa.Sort = 0;
+        }
+        _category.Update(nowCa);
+        _message.Info("编辑成功");
+        BindData();
 
     }
 
