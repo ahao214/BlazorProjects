@@ -14,7 +14,11 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public void Add(Product model)
         {
-            SqlSugarHelper.Db.Insertable(model).ExecuteCommand();
+            List<Product> tmpList = new List<Product>();
+            tmpList.Add(model);
+            SqlSugarHelper.Db.InsertNav<Product>(tmpList).Include(a => a.Images).ExecuteCommand();
+
+            //SqlSugarHelper.Db.Insertable(model).ExecuteCommand();
         }
 
         /// <summary>
@@ -85,7 +89,11 @@ namespace Joker.LearnBlazor.WebService.Repository
 
         public void Update(Product model)
         {
-            SqlSugarHelper.Db.Updateable(model).ExecuteCommand();
+            List<Product> tmpList = new List<Product>();
+            tmpList .Add(model);
+            SqlSugarHelper.Db.UpdateNav<Product>(tmpList).Include(a => a.Images).ExecuteCommand();
+
+            //SqlSugarHelper.Db.Updateable(model).ExecuteCommand();
         }
 
         public List<Product> GetListPage(string searchKey = "", int caId = 0, int pageSize = 8, int pageIndex = 1)
