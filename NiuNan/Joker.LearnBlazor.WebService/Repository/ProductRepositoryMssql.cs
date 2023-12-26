@@ -1,5 +1,6 @@
 ﻿using AntDesign;
 using Joker.LearnBlazor.WebService.Models;
+using System.Drawing.Printing;
 
 namespace Joker.LearnBlazor.WebService.Repository
 {
@@ -69,7 +70,7 @@ namespace Joker.LearnBlazor.WebService.Repository
             {
                 tmp = ca.CategoryPath + ca.CategoryId + ",";
             }
-            return SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.ProductId == caid|| pro.Category.CategoryPath.StartsWith(tmp)).ToList();
+            return SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.ProductId == caid || pro.Category.CategoryPath.StartsWith(tmp)).ToList();
         }
 
         public Product GetModel(int id)
@@ -80,6 +81,50 @@ namespace Joker.LearnBlazor.WebService.Repository
         public void Update(Product model)
         {
             SqlSugarHelper.Db.Updateable(model).ExecuteCommand();
+        }
+
+        public List<Product> GetListPae(string searchKey = "", int caId = 0, int pageSize = 8, int pageIndex = 1)
+        {
+            var q = SqlSugarHelper.Db.Queryable<Product>().Where (pro=>pro.ProductName.Contains(searchKey));
+            if(caId !=0)
+            {
+                Category ca = _category.GetModel(caId);
+                string tmp = string.Empty;
+                if (ca.ParentId == 0)
+                {
+                    // 第一级分类 ,1,
+                    tmp = $",{ca.CategoryId},";
+                }
+                else
+                {
+                    tmp = ca.CategoryPath + ca.CategoryId + ",";
+                }
+                q = q.Where(pro => pro.CategoryId == caId || pro.Category.CategoryPath.StartsWith(tmp));
+            }
+            return q.Skip ((pageIndex-1)* pageSize).Take(pageSize).ToList();
+
+        }
+
+        public int CalcCountPage(string searchKey = "", int caId = 0)
+        {
+
+            var q = SqlSugarHelper.Db.Queryable<Product>().Where(pro => pro.ProductName.Contains(searchKey));
+            if (caId != 0)
+            {
+                Category ca = _category.GetModel(caId);
+                string tmp = string.Empty;
+                if (ca.ParentId == 0)
+                {
+                    // 第一级分类 ,1,
+                    tmp = $",{ca.CategoryId},";
+                }
+                else
+                {
+                    tmp = ca.CategoryPath + ca.CategoryId + ",";
+                }
+                q = q.Where(pro => pro.CategoryId == caId || pro.Category.CategoryPath.StartsWith(tmp));
+            }
+            return q.Count();
         }
     }
 }

@@ -39,6 +39,13 @@
                  <Card Title="编辑">
                      <Body>
                          <p>
+                             <Input Placeholder="分类名称" @bind-Value="@editModel.CategoryName"></Input>
+                         </p>
+                         <p>
+                             <Input Placeholder="排序号" @bind-Value="@editModel.Sort"></Input>
+                         </p>
+
+                         <p>
                              <Input @bind-Value="@editModel.CategoryName"></Input>
                          </p>
                          <p>
@@ -142,6 +149,7 @@
     {
         Category ca = _category.GetModel(editModel.CategoryId);
         ca.CategoryName = editModel.CategoryName;
+        ca.Sort = editModel.Sort;
         _category.Update(ca);
         _message.Info("编辑分类成功");
         editModel = new Category();

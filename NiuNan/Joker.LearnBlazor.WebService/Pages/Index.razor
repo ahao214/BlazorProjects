@@ -76,6 +76,12 @@
                         }                    
                 </GridRow>
 
+                <GridRow>
+                    <GridCol Span="24">
+                        <Pagination PageIndex="@pageIndex" PageSize="@pageSize" Total="@total"></Pagination>
+                    </GridCol>
+                </GridRow>
+
             </Content>
         </Layout>
     </Layout>
@@ -124,6 +130,10 @@
     @code {
 
     #region 变量
+
+    private int pageIndex = 1;  //当前第几页
+    private int pageSize = 2;   //每页显示几行数据
+    private int total =0;       //总记录数
 
     // 是否登录
     private bool isLogin = false;
