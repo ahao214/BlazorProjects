@@ -114,6 +114,7 @@ namespace Joker.LearnBlazor.WebService.Repository
                 }
                 q = q.Where(pro => pro.CategoryId == caId || pro.Category.CategoryPath.StartsWith(tmp));
             }
+            q = q.OrderByDescending(a => a.LastUpdateTime);
             return q.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
 
         }

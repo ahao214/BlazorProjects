@@ -137,7 +137,7 @@
     </Modal>
 
 
-    <Modal Title="商品详情" Footer=null MaxBodyHeight="@("50vh")" Width="@("50vw")"
+    <Modal Title="商品详情" Footer=null MaxBodyHeight="@("80vh")" Width="@("80vw")"
     Visible="@detailWinVisible" OnCancel="@(()=>{detailWinVisible=false;})">
         <Descriptions Title="@detailModel.ProductName">
             <DescriptionsItem Title="Id">@detailModel.ProductId</DescriptionsItem>
@@ -150,8 +150,13 @@
             <DescriptionsItem Title="创建时间">@detailModel.CreatedTime.ToString("yyyy-MM-dd hh:mm")</DescriptionsItem>
             <DescriptionsItem Title="最后更新时间">@detailModel.LastUpdateTime.ToString("yyyy-MM-dd hh:mm")</DescriptionsItem>
         </Descriptions>
-        
-
+        <ImagePreviewGroup @bind-PreviewVisible="visible" >
+			@foreach(var item in detailModel.Images)
+            {
+                <Image Width="200" Src="@("/images/"+@item.Title)"/>
+            }
+		</ImagePreviewGroup>
+       
     </Modal>
 
     @code {
