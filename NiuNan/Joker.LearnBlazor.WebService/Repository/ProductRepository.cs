@@ -2,7 +2,7 @@
 
 namespace Joker.LearnBlazor.WebService.Repository
 {
-    public class ProductRepository : IProduct
+    public class ProductRepository 
     {
         public List<Product> proList { get; set; }
         public ProductRepository()

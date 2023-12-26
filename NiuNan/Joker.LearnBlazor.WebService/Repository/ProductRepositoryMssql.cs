@@ -83,7 +83,7 @@ namespace Joker.LearnBlazor.WebService.Repository
             SqlSugarHelper.Db.Updateable(model).ExecuteCommand();
         }
 
-        public List<Product> GetListPae(string searchKey = "", int caId = 0, int pageSize = 8, int pageIndex = 1)
+        public List<Product> GetListPage(string searchKey = "", int caId = 0, int pageSize = 8, int pageIndex = 1)
         {
             var q = SqlSugarHelper.Db.Queryable<Product>().Where (pro=>pro.ProductName.Contains(searchKey));
             if(caId !=0)
