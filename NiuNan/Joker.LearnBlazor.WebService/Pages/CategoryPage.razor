@@ -91,12 +91,14 @@
             // 同一级,下方
             nowCa.ParentId = targetCa.ParentId;
             nowCa.Sort = targetCa.Sort + 1;
+            nowCa.CategoryPath = targetCa.CategoryPath;
         }
         else
         {
             // 下一级
             nowCa.ParentId = targetCa.CategoryId;
             nowCa.Sort = 0;
+            nowCa.CategoryPath = targetCa.CategoryPath + targetCa.CategoryId + ",";
         }
         _category.Update(nowCa);
         _message.Info("编辑成功");
