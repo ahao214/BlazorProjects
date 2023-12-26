@@ -22,7 +22,33 @@ namespace Joker.LearnBlazor.WebService.Models
         [Navigate(NavigateType.OneToOne, nameof(CategoryId))]
         public Category Category { get; set; }
 
-        [Navigate(NavigateType.OneToMany,nameof(ProductImages.ProductId))] // 一个商品对应多张图片
-        public List <ProductImages> Images { get; set; }
+        [Navigate(NavigateType.OneToMany, nameof(ProductImages.ProductId))] // 一个商品对应多张图片
+        public List<ProductImages> Images { get; set; }
+        /// <summary>
+        /// 商品条码
+        /// </summary>
+        public string Code { get; set; }
+        /// <summary>
+        /// 商品品牌
+        /// </summary>
+        public string BrandName { get; set; }
+        /// <summary>
+        /// 单位
+        /// </summary>
+        public string Unit { get; set; }
+        /// <summary>
+        /// 单价
+        /// </summary>
+        public double UnitPrice { get; set; }
+        /// <summary>
+        /// 使用感受
+        /// </summary>
+        public string UseFell { get; set; }
+
+        public DateTime CreatedTime { get; set; } = DateTime.Now;
+
+        public DateTime LastUpdateTime { get; set; } = DateTime.Now;
+    
     }
+
 }
