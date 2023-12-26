@@ -7,6 +7,29 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Include="wwwroot\Images\1.jpg" />
+    <None Include="wwwroot\Images\10.jpg" />
+    <None Include="wwwroot\Images\11.jpg" />
+    <None Include="wwwroot\Images\12.jpg" />
+    <None Include="wwwroot\Images\13.jpg" />
+    <None Include="wwwroot\Images\14.jpg" />
+    <None Include="wwwroot\Images\15.jpg" />
+    <None Include="wwwroot\Images\16.jpg" />
+    <None Include="wwwroot\Images\17.jpg" />
+    <None Include="wwwroot\Images\18.jpg" />
+    <None Include="wwwroot\Images\19.jpg" />
+    <None Include="wwwroot\Images\2.jpg" />
+    <None Include="wwwroot\Images\20.jpg" />
+    <None Include="wwwroot\Images\3.jpg" />
+    <None Include="wwwroot\Images\4.jpg" />
+    <None Include="wwwroot\Images\5.jpg" />
+    <None Include="wwwroot\Images\6.jpg" />
+    <None Include="wwwroot\Images\7.jpg" />
+    <None Include="wwwroot\Images\8.jpg" />
+    <None Include="wwwroot\Images\9.jpg" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.24" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.24" PrivateAssets="all" />
   </ItemGroup>
