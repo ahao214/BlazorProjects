@@ -9,6 +9,7 @@
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            // 向数据表中插入数据
             modelBuilder.Entity<Product>().HasData(
                 new Product
                 {
