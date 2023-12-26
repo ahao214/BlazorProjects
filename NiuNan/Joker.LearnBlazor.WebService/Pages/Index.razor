@@ -92,7 +92,12 @@
         <FormItem Label="商品名称">
             <Input @bind-Value="@context.ProductName" />
         </FormItem>
-
+        <FormItem Label="条  码">
+            <Input @bind-Value="@context.Code" />
+        </FormItem>
+        <FormItem Label="品  牌">
+            <Input @bind-Value="@context.BrandName" />
+        </FormItem>
         <FormItem Label="商品图片">
             <InputFile id="fileInput" OnChange="UploadFiles" hidden multiple />             <Upload Name="files" FileList="fileList">
                 <label class="ant-btn" for="fileInput">
@@ -100,15 +105,20 @@
                     选择图片
                 </label>
             </Upload>
-
-
         </FormItem>
-
-
         <FormItem Label="商品分类">
             <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@selCaId" Placeholder="请选择" AllowClear TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
 
              </TreeSelect>
+         </FormItem>
+         <FormItem Label="单  位">
+             <Input @bind-Value="@context.Unit" />
+         </FormItem>
+         <FormItem Label="单  价">
+             <Input @bind-Value="@context.UnitPrice" />
+         </FormItem>
+         <FormItem Label="使用感受">
+             <TextArea Rows="4" @bind-Value="@context.UseFell" />
          </FormItem>
          <Button Type="@ButtonType.Primary" HtmlType="submit">@btnText</Button>
         </Form>
@@ -339,13 +349,15 @@
         if (model.ProductId != 0)
         {
             // 编辑
+            model.LastUpdateTime = DateTime.Now;
             _product.Update(model);
             res = "编辑成功!!!";
         }
         else
         {
             // 新增
-            model.ProductId = new Random().Next(5, 10000);
+            model.CreatedTime = DateTime.Now;
+            model.LastUpdateTime = DateTime.Now;
             _product.Add(model);
             res = "新增成功!!!";
         }
@@ -381,10 +393,10 @@
         selCaId = model.CategoryId.ToString();
         fileList.Clear();
 
-        foreach (var item in model.Images )
+        foreach (var item in model.Images)
         {
             fileList.Add(new UploadFileItem() { FileName = item.Title });
-        }        
+        }
     }
 
     /// <summary>
