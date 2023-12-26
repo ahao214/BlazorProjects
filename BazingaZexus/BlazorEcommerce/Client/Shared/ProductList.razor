@@ -1,0 +1,55 @@
+﻿<ul class="list-unstyled">
+    @foreach(var item in Products)
+    {
+        <li class="media my-3">
+            <div class="media-img-wrapper mr-2">
+                <a  href="#">
+                    <img class="media-img" src="@item.ImageUrl" alt="@item.ImageUrl"/>
+                </a>
+            </div>
+            <div class="mdia-body">
+                <a href="#">
+                    <h4 class="mb-0">@item.Title</h4>
+                </a>
+                <p>@item.Description</p>
+                <h3 class="price">
+                    $@item.Price
+                </h3>
+            </div>
+        </li>
+    }
+
+</ul>
+
+
+
+@code {
+    private static List<Product> Products = new List<Product>
+    {
+        new Product
+        {
+            Id=1,
+            Title="The Hitchhiker's Guide to the Galaxy",
+            Description="The Hitchhiker's",
+            ImageUrl="https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E4%B9%A6%E5%B0%81%E9%9D%A2&step_word=&hs=0&pn=0&spn=0&di=7264239678495129601&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=2615868938%2C1446461499&os=3424324097%2C4233352657&simid=2615868938%2C1446461499&adpicid=0&lpn=0&ln=1758&fr=&fmq=1703576455877_R&fm=index&ic=0&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=640&height=640&face=undefined&ist=&jit=&cg=&bdtype=0&oriquery=&objurl=https%3A%2F%2Fimage.suning.cn%2Fuimg%2FZR%2Fshare_order%2F151072129077491028_640x640.jpg&fromurl=ippr_z2C%24qAzdH3FAzdH3F6jetjo_z%26e3Bf7gtg2_z%26e3Bv54AzdH3F6jetjo_1jpwtsAzdH3F800m0blan-8anman0la-aa0aabblll-8_z%26e3Bip4&gsm=78&rpstart=0&rpnum=0&islist=&querylist=&nojc=undefined&lid=8324592698323107487",
+            Price=9.99m
+        },
+        new Product
+        {
+            Id=2,
+            Title="Ready play one",
+            Description="I want to play with my friends",
+            ImageUrl="https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E4%B9%A6%E5%B0%81%E9%9D%A2&step_word=&hs=0&pn=7&spn=0&di=58720257&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=516624729%2C3135920273&os=377045527%2C3694039679&simid=516624729%2C3135920273&adpicid=0&lpn=0&ln=1758&fr=&fmq=1703576455877_R&fm=index&ic=0&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=640&height=640&face=undefined&ist=&jit=&cg=&bdtype=14&oriquery=&objurl=https%3A%2F%2Fmobile.yangkeduo.com%2Fgoods.html%3Fgoods_id%3D56068765010&fromurl=ipprf_z2C%24qAzdH3FAzdH3F45ktsj_z%26e3Bywg2hj175_z%26e3Bv54AzdH3F2551f_z%26e3Bip4s%3F2551f_t1%3Dcmamb0mca8a&gsm=78&rpstart=0&rpnum=0&islist=&querylist=&nojc=undefined&lid=8324592698323107487",
+            Price=7.99m
+        },
+        new Product
+        {
+            Id=3,
+            Title="Nineteen eighty-four",
+            Description="Nineteen eighty-four is a book",
+            ImageUrl="https://image.baidu.com/search/detail?ct=503316480&z=0&ipn=d&word=%E5%9B%BE%E4%B9%A6%E5%B0%81%E9%9D%A2&step_word=&hs=0&pn=36&spn=0&di=46137345&pi=0&rn=1&tn=baiduimagedetail&is=0%2C0&istype=2&ie=utf-8&oe=utf-8&in=&cl=2&lm=-1&st=-1&cs=1211488701%2C236082350&os=3954217197%2C234651150&simid=1211488701%2C236082350&adpicid=0&lpn=0&ln=1758&fr=&fmq=1703576455877_R&fm=index&ic=0&s=undefined&hd=undefined&latest=undefined&copyright=undefined&se=&sme=&tab=0&width=640&height=640&face=undefined&ist=&jit=&cg=&bdtype=11&oriquery=&objurl=https%3A%2F%2Fpics3.baidu.com%2Ffeed%2F4b90f603738da9778c3e7b7ddd5de5148618e369.jpeg%40f_auto%3Ftoken%3D59d976669bbc3f2b73d9b537ba7608e4&fromurl=ippr_z2C%24qAzdH3FAzdH3Fkwt3twiw5_z%26e3Bkwt17_z%26e3Bv54AzdH3Ff%3Ft1%3D80bdb0d9lndl9a0b0c0%26ou6%3Dfrt1j6%26u56%3Drv&gsm=1e&rpstart=0&rpnum=0&islist=&querylist=&nojc=undefined&lid=8324592698323107487",
+            Price=6.99m
+        },
+    };
+
+}
