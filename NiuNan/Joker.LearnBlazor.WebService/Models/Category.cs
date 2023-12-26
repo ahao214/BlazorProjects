@@ -17,6 +17,10 @@ namespace Joker.LearnBlazor.WebService.Models
         /// 分类路径 存储所有父类ID 如:1,2,3,4
         /// </summary>
         public string CategoryPath { get; set; } = string.Empty;
+        /// <summary>
+        /// 排序字段,从小到大
+        /// </summary>
+        public int Sort { get;set; }
 
         [SugarColumn(IsIgnore =true)]
         public List<Category> Items { get; set; } = new List<Category>();

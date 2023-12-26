@@ -65,7 +65,7 @@ namespace Joker.LearnBlazor.WebService.Repository
             List<Category> categories = GetList();
             List<Category> list = new List<Category>();
             // 取出父级节点
-            var top = categories.Where(ca => ca.ParentId == 0).ToList();
+            var top = categories.Where(ca => ca.ParentId == 0).OrderBy(ca=>ca.Sort).ToList();
             foreach (var oneca in top)
             {
                 oneca.Items.Clear();
@@ -83,7 +83,7 @@ namespace Joker.LearnBlazor.WebService.Repository
         /// <param name="model"></param>
         private void Digui(Category model, List<Category> categories)
         {
-            var sub = categories.Where(ca => ca.ParentId == model.CategoryId).ToList();
+            var sub = categories.Where(ca => ca.ParentId == model.CategoryId).OrderBy(ca=>ca.Sort).ToList();
             foreach (var ca in sub)
             {
                 ca.Items.Clear();

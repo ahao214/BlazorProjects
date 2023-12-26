@@ -9,7 +9,7 @@
 <Layout Style="min-height: 100vh; ">
     <Sider Width="250" Style="background-color:white">
         <h3>分类管理</h3>
-        <Tree DefaultExpandAll="true" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
+        <Tree DefaultExpandAll="true" DataSource="calist" OnDrop="OnDrop" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
               KeyExpression="x=>x.DataItem.CategoryId.ToString()"
               TItem="Category">
         </Tree>
@@ -79,6 +79,18 @@
     {
         calist = _category.GetTreeModel();
     }
+
+    #region 拖拽
+
+    void OnDrop(TreeEventArgs<Category> e)
+    {
+        Category nowCa = e.Node.DataItem;
+        Category targetCa = e.TargetNode.DataItem;  // 拖动到该节点的底部
+
+
+    }
+
+    #endregion
 
     #region 新增
 
