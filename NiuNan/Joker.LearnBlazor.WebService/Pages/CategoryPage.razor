@@ -9,24 +9,24 @@
 <Layout Style="min-height: 100vh; ">
     <Sider Width="250" Style="background-color:white">
         <h3>分类管理</h3>
-        <Tree DefaultExpandAll="true" DataSource="calist" OnDrop="OnDrop" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
-              KeyExpression="x=>x.DataItem.CategoryId.ToString()"
-              TItem="Category">
-        </Tree>
-    </Sider>
+        <Tree DefaultExpandAll Draggable OnDragEnd="e=> { }" OnDrop="onDrop" DataSource="calist" OnSelect="OnSelect" TitleExpression="x=>GetTreeTitle(x.DataItem)" ChildrenExpression="x=>x.DataItem.Items"
+               KeyExpression="x=>x.DataItem.CategoryId.ToString()"
+               TItem="Category">
+         </Tree>
+     </Sider>
 
-    <Layout Class="site-layout" Style="padding:10px;">
-        <Space Direction="DirectionVHType.Vertical">
-            <SpaceItem>
-                <Card Title="新增">
-                    <Body>
-                        <Form Model="@addModel" OnFinish="SubAdd">
-                            <FormItem Label="商品名称">
-                                <Input @bind-Value="@context.CategoryName" />
-                            </FormItem>
+     <Layout Class="site-layout" Style="padding:10px;">
+         <Space Direction="DirectionVHType.Vertical">
+             <SpaceItem>
+                 <Card Title="新增">
+                     <Body>
+                         <Form Model="@addModel" OnFinish="SubAdd">
+                             <FormItem Label="分类名称">
+                                 <Input @bind-Value="@context.CategoryName" />
+                             </FormItem>
 
-                            <FormItem Label="商品分类">
-                                <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@addPId" Placeholder="请选择" AllowClear TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
+                             <FormItem Label="父级分类">
+                                 <TreeSelect TItem="Category" Style="width:100%;" DataSource="calist" @bind-Value="@addPId" Placeholder="请选择" AllowClear TreeDefaultExpandAll ChildrenExpression="node=>node.DataItem.Items" TitleExpression="node=>node.DataItem.CategoryName" KeyExpression="node=>node.DataItem.CategoryId.ToString()" IsLeafExpression="node=>node.DataItem.Items.Count()==0">
 
                                  </TreeSelect>
                              </FormItem>
@@ -59,8 +59,8 @@
                      <Body>
                          <p>
                              待删除的分类:@delModel.CategoryName
-                         </p>
-                         <p>                            
+                        </p>
+                        <p>
                             <Popconfirm Title="是否确认删除" Placement="@Placement.Right" OnConfirm="SubDelete">
                                 <Button Danger Type="@ButtonType.Primary" Icon="@IconType.Outline.Delete">删除</Button>
                              </Popconfirm>
@@ -75,7 +75,7 @@
 
  @code {
 
-
+    #region 绑定
     protected override void OnInitialized()
     {
         base.OnInitialized();
@@ -86,14 +86,15 @@
     {
         calist = _category.GetTreeModel();
     }
+    #endregion
 
     #region 拖拽
 
-    void OnDrop(TreeEventArgs<Category> e)
+    void onDrop(TreeEventArgs<Category> e)
     {
         Category nowCa = e.Node.DataItem;
         Category targetCa = e.TargetNode.DataItem;  // 拖动到该节点的底部
-        if(e.DropBelow == true)
+        if (e.DropBelow == true)
         {
             // 同一级,下方
             nowCa.ParentId = targetCa.ParentId;
@@ -143,7 +144,7 @@
 
     #region 编辑名称
 
-    private Category editModel=new Category();
+    private Category editModel = new Category();
 
     private void SubEdit()
     {
