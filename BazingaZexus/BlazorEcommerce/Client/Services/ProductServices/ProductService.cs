@@ -15,7 +15,11 @@ namespace BlazorEcommerce.Client.Services.ProductServices
 
         public List<Product> Products { get; set; } = new List<Product>();
         
-
+        /// <summary>
+        /// 获取商品
+        /// </summary>
+        /// <param name="categoryUrl"></param>
+        /// <returns></returns>
         public async Task GetProducts(string? categoryUrl=null)
         {
             var result = categoryUrl == null ?
