@@ -1,13 +1,13 @@
 ﻿@inject IProductService _productService
 
-@if(_productService.Products!= null || _productService.Products.Count ==0 )
+@if(_productService.Products== null || _productService.Products.Count ==0 )
 {
     <span>Loading Products...</span>
 }
 else
 {
     <ul class="list-unstyled">
-        @foreach (var item in Products)
+        @foreach (var item in _productService.Products)
         {
             <li class="media my-3">
                 <div class="media-img-wrapper mr-2">
