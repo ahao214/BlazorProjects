@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace BlazorEcommerce.Shared
 {
     /// <summary>
-    /// 商品种类
+    /// 商品类型
     /// </summary>
     public class ProductType
     {
