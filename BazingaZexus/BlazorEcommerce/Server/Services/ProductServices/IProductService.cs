@@ -13,5 +13,11 @@
         /// <param name="productId"></param>
         /// <returns></returns>
         Task<ServiceResponse<Product>> GetProductAsync(int productId);
+
+        /// <summary>
+        /// 根据分类获取产品数据
+        /// </summary>
+        /// <returns></returns>
+        Task<ServiceResponse<List<Product>>> GetProductsByCategory(string categoryUrl);
     }
 }
