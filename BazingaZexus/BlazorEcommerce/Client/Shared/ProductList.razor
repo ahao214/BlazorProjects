@@ -36,9 +36,7 @@ else
 
 
 @code {
-
-    //private static List<Product> Products = new List<Product>();
-
+    
     protected override void OnInitialized()
     {
         _productService.ProductsChanged += StateHasChanged;
