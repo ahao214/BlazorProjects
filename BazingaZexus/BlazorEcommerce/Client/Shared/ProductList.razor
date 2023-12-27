@@ -1,6 +1,8 @@
 ﻿@inject IProductService _productService
+@implements IDisposable
 
-@if(_productService.Products== null || _productService.Products.Count ==0 )
+
+@if (_productService.Products == null || _productService.Products.Count == 0)
 {
     <span>Loading Products...</span>
 }
@@ -35,12 +37,16 @@ else
 
 @code {
 
-    private static List<Product> Products = new List<Product>();
+    //private static List<Product> Products = new List<Product>();
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
-        await _productService.GetProducts();
+        _productService.ProductsChanged += StateHasChanged;
     }
 
+    public void Dispose()
+    {
+        _productService.ProductsChanged -= StateHasChanged;
+    }
 
 }
