@@ -5,5 +5,11 @@
     /// </summary>
     public interface ICategoryService
     {
+        /// <summary>
+        /// 获取所有商品分类
+        /// </summary>
+        /// <returns></returns>
+        Task<ServiceResponse<List<Category>>> GetCategories();
+
     }
 }
