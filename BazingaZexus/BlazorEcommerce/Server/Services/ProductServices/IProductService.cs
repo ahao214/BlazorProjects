@@ -19,5 +19,11 @@
         /// </summary>
         /// <returns></returns>
         Task<ServiceResponse<List<Product>>> GetProductsByCategory(string categoryUrl);
+        /// <summary>
+        /// 根据内容搜索商品
+        /// </summary>
+        /// <param name="searchText"></param>
+        /// <returns></returns>
+        Task<ServiceResponse<List<Product>>> SearchProducts(string searchText);
     }
 }
