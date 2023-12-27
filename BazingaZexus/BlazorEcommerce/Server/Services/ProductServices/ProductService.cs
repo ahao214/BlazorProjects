@@ -11,6 +11,27 @@ namespace BlazorEcommerce.Server.Services.ProductServices
         }
 
         /// <summary>
+        /// 获取产品详情
+        /// </summary>
+        /// <param name="productId"></param>
+        /// <returns></returns>
+        public async Task<ServiceResponse<Product>> GetProductAsync(int productId)
+        {
+            var response = new ServiceResponse<Product>();
+            var product = await _context.Products.FindAsync(productId);
+            if (product == null)
+            {
+                response.Success = false;
+                response.Message = "Sorry,but this product does not exist";
+            }
+            else
+            {
+                response.Data = product;
+            }
+            return response;
+        }
+
+        /// <summary>
         /// 获取产品数据
         /// </summary>
         /// <returns></returns>
