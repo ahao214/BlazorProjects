@@ -15,11 +15,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joker.LearnBlazor.Web", "Ni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Joker.LearnBlazor.WebService", "NiuNan\Joker.LearnBlazor.WebService\Joker.LearnBlazor.WebService.csproj", "{1B1A61B3-BDA0-4DF7-A6B9-D9EBB9FB7689}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEcommerce.Server", "BazingaZexus\BlazorEcommerce\Server\BlazorEcommerce.Server.csproj", "{E554ED29-B9C1-4645-8A78-E0AB6C80C970}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorEcommerce.Server", "BazingaZexus\BlazorEcommerce\Server\BlazorEcommerce.Server.csproj", "{E554ED29-B9C1-4645-8A78-E0AB6C80C970}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEcommerce.Client", "BazingaZexus\BlazorEcommerce\Client\BlazorEcommerce.Client.csproj", "{C0FF57F7-9F45-4277-9E13-093C74AC7536}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorEcommerce.Client", "BazingaZexus\BlazorEcommerce\Client\BlazorEcommerce.Client.csproj", "{C0FF57F7-9F45-4277-9E13-093C74AC7536}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorEcommerce.Shared", "BazingaZexus\BlazorEcommerce\Shared\BlazorEcommerce.Shared.csproj", "{0688321D-C67D-43EC-A230-3CF823787CF0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorEcommerce.Shared", "BazingaZexus\BlazorEcommerce\Shared\BlazorEcommerce.Shared.csproj", "{0688321D-C67D-43EC-A230-3CF823787CF0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "GrayJunZi", "GrayJunZi", "{781DE4C6-5083-4F5B-BD62-87F16CC84C69}"
 EndProject
