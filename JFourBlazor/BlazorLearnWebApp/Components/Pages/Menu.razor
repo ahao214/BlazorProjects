@@ -1,8 +1,10 @@
 ﻿@page "/menu"
 @using BlazorLearnWebApp.Entity
+@inject IDataService<MenuEntity> _dataService
+
 
 @attribute [TabItemOption(Text = "菜单管理")]
-<AdminTable TItem="MenuEntity">
+<AdminTable TItem="MenuEntity" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync">
     <TableColumns>
         <TableColumn @bind-Field="@context.MenuName"></TableColumn>
         <TableColumn @bind-Field="@context.Icon"></TableColumn>
@@ -27,10 +29,17 @@
     protected override async Task OnInitializedAsync()
     {
         await base.OnInitializedAsync();
-        var menus =await MenuEntity.Select.ToListAsync();
+        await RefreshItems();
+    }
+
+    private async Task RefreshItems()
+    {
+        Items.Clear();
+        var menus = await MenuEntity.Select.ToListAsync();
         Items.Add(new TreeViewItem<int>(0) { Text = "顶级菜单" });
         Items.AddRange(CascadingMenu(menus, 0));
     }
+
 
     private List<TreeViewItem<int>> CascadingMenu(List<MenuEntity> menuEntities, int parentId) => menuEntities
     .Where(x => x.ParentId == parentId)
@@ -38,4 +47,21 @@
     .ToList();
 
 
+
+    private async Task <bool> OnSaveAsync(MenuEntity arg1,ItemChangedType arg2)
+    {
+        await arg1.SaveAsync();
+        await RefreshItems();
+        return true;
+    }
+
+    private async Task<bool> OnDeleteAsync(IEnumerable<MenuEntity> arg)
+    {
+        if (await _dataService.DeleteAsync(arg))
+        {
+            await RefreshItems();
+            return true;
+        }
+        return false;
+    }
 }
