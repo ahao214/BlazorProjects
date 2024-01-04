@@ -1,5 +1,31 @@
-﻿<h3>EditMenu</h3>
+﻿@using BlazorLearnWebApp.Entity
+
+<TreeView TItem="MenuEntity" Items="Items" ShowCheckbox="true" AutoCheckChildren="true" AutoCheckParent="true" ShowIcon="true">
+
+</TreeView>
 
 @code {
+    private List<TreeViewItem<MenuEntity>> Items { get; set; } = new List<TreeViewItem<MenuEntity>>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        await RefreshItems();
+    }
+
+
+    private async Task RefreshItems()
+    {
+        Items.Clear();
+        var menus = await MenuEntity.Select.ToListAsync();
+        Items.AddRange(CascadingMenu(menus, 0));
+    }
+
+
+    private List<TreeViewItem<MenuEntity>> CascadingMenu(List<MenuEntity> menuEntities, int parentId) => menuEntities
+    .Where(x => x.ParentId == parentId)
+    .Select(x => new TreeViewItem<MenuEntity>(x) { Text = x.MenuName, IsExpand = true, Icon = x.Icon, Items = CascadingMenu(menuEntities, x.Id) })
+    .ToList();
+
 
 }
