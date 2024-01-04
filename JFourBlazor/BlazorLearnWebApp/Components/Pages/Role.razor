@@ -1,0 +1,18 @@
+﻿@page "/role"
+@using BlazorLearnWebApp.Entity
+
+
+@attribute [TabItemOption(Text ="角色管理")]
+
+<AdminTable TItem="RoleEntity" 
+    ShowExtendEditButtonCallback="@(entity=>entity.RoleName!="管理员")" ShowExtendDeleteButtonCallback="@(entity=>entity.RoleName!="管理员")">
+    <TableColumns>
+        <TableColumn @bind-Field="@context.RoleName">
+
+        </TableColumn>
+    </TableColumns>
+</AdminTable>
+
+@code {
+
+}

@@ -23,5 +23,12 @@ namespace BlazorLearnWebApp.Components.Components
         [Parameter]
         public Func <IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
 
+        [Parameter]
+        public Func<TItem, bool>? ShowExtendEditButtonCallback { get; set; }
+
+        [Parameter]
+        public Func<TItem, bool>? ShowExtendDeleteButtonCallback { get; set; }
+
+
     }
 }
