@@ -1,5 +1,6 @@
 ﻿@page "/role"
 @using BlazorLearnWebApp.Entity
+@inject DialogService _dialogService
 
 
 @attribute [TabItemOption(Text ="角色管理")]
@@ -11,8 +12,24 @@
 
         </TableColumn>
     </TableColumns>
+    <BeforeRowButtonTemplate>
+        <TableCellButton Text="编辑菜单" OnClick="EditMenu">
+
+        </TableCellButton>
+    </BeforeRowButtonTemplate>
 </AdminTable>
+
+
+
 
 @code {
 
+    private void EditMenu()
+    {
+        _dialogService.Show(new DialogOption()
+        {
+            Component= BootstrapDynamicComponent.CreateComponent<EditMenu>()
+        });
+
+    }
 }
