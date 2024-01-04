@@ -17,5 +17,11 @@ namespace BlazorLearnWebApp.Components.Components
         [Parameter]
         public Func<IEnumerable<TItem>, Task<bool>>? OnDeleteAsync { get; set; }
 
+        [Parameter]
+        public bool IsTree { get; set; }
+
+        [Parameter]
+        public Func <IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
+
     }
 }

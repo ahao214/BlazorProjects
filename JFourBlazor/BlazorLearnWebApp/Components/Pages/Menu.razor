@@ -4,13 +4,13 @@
 
 
 @attribute [TabItemOption(Text = "菜单管理")]
-<AdminTable TItem="MenuEntity" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync">
+<AdminTable TItem="MenuEntity" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync" IsTree="true" TreeNodeConverter="TreeNodeConverter">
     <TableColumns>
         <TableColumn @bind-Field="@context.MenuName"></TableColumn>
         <TableColumn @bind-Field="@context.Icon"></TableColumn>
         <TableColumn @bind-Field="@context.Url"></TableColumn>
         <TableColumn @bind-Field="@context.ParentId" Visible="false" Text="父菜单">
-            <EditTemplate Context="value" >
+            <EditTemplate Context="value">
                 <div class="col-12 col-sm-6 cod-md-6">
                     <SelectTree @bind-Value="value.ParentId" Items="Items" DisplayText="父菜单"></SelectTree>
                 </div>
@@ -48,7 +48,7 @@
 
 
 
-    private async Task <bool> OnSaveAsync(MenuEntity arg1,ItemChangedType arg2)
+    private async Task<bool> OnSaveAsync(MenuEntity arg1, ItemChangedType arg2)
     {
         await arg1.SaveAsync();
         await RefreshItems();
@@ -64,4 +64,32 @@
         }
         return false;
     }
+
+
+    private Task<IEnumerable<TableTreeNode<MenuEntity>>> TreeNodeConverter(IEnumerable<MenuEntity> items)
+    {
+        // 构造树状数据结构
+        var res = BuildTreeNodes(items, 0);
+        return Task.FromResult(res);
+        IEnumerable<TableTreeNode<MenuEntity>> BuildTreeNodes(IEnumerable<MenuEntity> items, int parentId)
+        {
+            var res = new List<TableTreeNode<MenuEntity>>();
+            res.AddRange(items.Where(i => i.ParentId == parentId).Select((menu, index) => new TableTreeNode<MenuEntity>(menu)
+                {
+                    HasChildren = items.Any(x => x.ParentId == menu.Id),
+                    Items = BuildTreeNodes(items, menu.Id)
+                }));
+            return res;
+
+        }
+    }
+
+
+
+
+
+
+
+
+
 }
