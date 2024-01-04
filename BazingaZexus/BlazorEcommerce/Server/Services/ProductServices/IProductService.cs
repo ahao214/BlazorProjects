@@ -27,5 +27,7 @@
         Task<ServiceResponse<List<Product>>> SearchProducts(string searchText);
 
         Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText);
+
+        Task<ServiceResponse<List<Product>>> GetFeaturedProducts();
     }
 }

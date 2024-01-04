@@ -98,7 +98,7 @@ namespace BlazorEcommerce.Server.Services.ProductServices
 
                     foreach (var word in words)
                     {
-                        if(word .Contains (searchText, StringComparison.OrdinalIgnoreCase) && !result .Contains (word))
+                        if (word.Contains(searchText, StringComparison.OrdinalIgnoreCase) && !result.Contains(word))
                         {
                             result.Add(word);
                         }
@@ -119,6 +119,18 @@ namespace BlazorEcommerce.Server.Services.ProductServices
                 .Include(p => p.Variants).ToListAsync();
         }
 
-
+        /// <summary>
+        /// 获取特色产品
+        /// </summary>
+        /// <returns></returns>
+        public async Task<ServiceResponse<List<Product>>> GetFeaturedProducts()
+        {
+            var response = new ServiceResponse<List<Product>>
+            {
+                Data = await _context.Products.Where(p => p.Featured).Include(p => p.Variants).ToListAsync()
+            };
+            return response;
+        }
     }
+
 }
