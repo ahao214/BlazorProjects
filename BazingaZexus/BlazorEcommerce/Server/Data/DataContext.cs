@@ -60,7 +60,8 @@ namespace BlazorEcommerce.Server.Data
                     Description = "《儒林外史》是清代吴敬梓创作的长篇小说，成书于乾隆十四年（1749年）或稍前，现以抄本传世，初刻于嘉庆八年（1803年）。全书五十六回，以写实主义描绘各类人士对于“功名富贵”的不同表现，一方面真实地揭示人性被腐蚀的过程和原因，从而对当时吏治的腐败、科举的弊端、礼教的虚伪等进行了深刻的批判和嘲讽；一方面热情地歌颂了少数人物以坚持自我的方式所作的对于人性的守护，从而寄寓了作者的理想。小说白话的运用已趋纯熟自如，人物性格的刻画也颇为深入细腻，尤其是采用高超的讽刺手法，使该书成为中国古典讽刺文学的佳作。《儒林外史》代表着中国古代讽刺小说的高峰，它开创了以小说直接评价现实生活的范例。 《儒林外史》脱稿后即有手抄本传世，后人评价甚高，鲁迅认为该书思想内容“秉持公心，指摘时弊”，胡适认为其艺术特色堪称“精工提炼”。在国际汉学界，该书更是影响颇大，早有英、法、德、俄、日、西班牙等多种文字传世，并获汉学界盛赞，有认为《儒林外史》足堪跻身于世界文学杰作之林，可与薄伽丘、塞万提斯、巴尔扎克或狄更斯等人的作品相提并论，是对世界文学的卓越贡献。",
                     ImageUrl = "/Images/1.jpg",
 
-                    CategoryId = 1
+                    CategoryId = 1,
+                    Featured = true
                 },
                 new Product
                 {
@@ -69,7 +70,8 @@ namespace BlazorEcommerce.Server.Data
                     Description = "《三国演义》（又名《三国志演义》《三国志通俗演义》 [45-46]）是元末明初小说家罗贯中根据陈寿《三国志》和裴松之注解以及民间三国故事传说经过艺术加工创作而成的长篇章回体历史演义小说，与《西游记》《水浒传》《红楼梦》并称为中国古典四大名著。",
                     ImageUrl = "https://p3.itc.cn/q_70/images03/20201125/148f3f1283fd450fae713ff0ace1da28.jpeg",
 
-                    CategoryId = 1
+                    CategoryId = 1,
+                    Featured = true
                 },
                 new Product
                 {
@@ -105,7 +107,8 @@ namespace BlazorEcommerce.Server.Data
                     Description = "《弱点》是根据迈克尔·路易斯的小说《弱点：比赛进程》改编，由约翰·李·汉柯克执导，桑德拉·布洛克、蒂姆·麦格罗、昆顿·亚伦等主演的励志电影。影片讲述了一个无家可归的非洲裔男孩迈克尔·奥赫从小就是一个孤儿，一再的从领养家庭中逃走后终于遇上了好心的陶西太太，而在后者的帮助下，迈克尔·奥赫逐渐的找到了自我，在自己的身体条件与刻苦锻炼下，他终于成为了美国国家橄榄球联盟的首批被选球员",
                     ImageUrl = "/Images/ruodian.jpg",
 
-                    CategoryId = 2
+                    CategoryId = 2,
+                    Featured = true
                 },
                 new Product
                 {
@@ -132,7 +135,8 @@ namespace BlazorEcommerce.Server.Data
                     Description = "该游戏的故事背景是根据著名恐怖片《异形（Alien）》改编。1987年第一款魂斗罗诞生在名为Jamma的街机上。此外KONAMI于1989年还在日式计算机MSX2上推出了大型游戏机的同名移植版。",
                     ImageUrl = "/Images/hundouluo.jpg",
 
-                    CategoryId = 3
+                    CategoryId = 3,
+                    Featured = true
                 },
                 new Product
                 {
