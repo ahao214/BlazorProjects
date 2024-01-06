@@ -18,7 +18,7 @@ namespace BlazorEcommerce.Client.Services.ProductServices
 
         public int CurrentPage { get; set; } = 1;
         public int PageCount { get; set; } = 0;
-        public string LastSearchText { get; set; } = string.Empty;      
+        public string LastSearchText { get; set; } = string.Empty;
 
         /// <summary>
         /// 获取商品
@@ -51,6 +51,7 @@ namespace BlazorEcommerce.Client.Services.ProductServices
 
         public async Task SearchProducts(string searchText, int page)
         {
+            LastSearchText = searchText;
             var result = await _http.GetFromJsonAsync<ServiceResponse<ProductSearchResult>>($"api/product/search/{searchText}/{page}");
             if (result != null && result.Data != null)
             {
