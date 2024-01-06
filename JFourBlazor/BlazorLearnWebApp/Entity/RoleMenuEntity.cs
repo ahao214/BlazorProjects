@@ -11,9 +11,14 @@ namespace BlazorLearnWebApp.Entity
         [Column(IsPrimary = true)]
         public int RoleId { get; set; }
 
+        [Navigate(nameof(RoleId))]
+        public RoleEntity? RoleEntity { get; set; }
+
         [Description("菜单ID")]
         [Column(IsPrimary = true)]
         public int MenuId { get; set; }
 
+        [Navigate(nameof(MenuId))]
+        public MenuEntity? MenuEntity { get; set; }
     }
 }

@@ -1,5 +1,7 @@
 ﻿@using BlazorLearnWebApp.Entity
+@using System.Diagnostics.CodeAnalysis
 
+@RoleEntity.RoleName
 <TreeView TItem="MenuEntity" Items="Items" ShowCheckbox="true" AutoCheckChildren="true" AutoCheckParent="true" ShowIcon="true">
 
 </TreeView>
@@ -7,8 +9,16 @@
 @code {
     private List<TreeViewItem<MenuEntity>> Items { get; set; } = new List<TreeViewItem<MenuEntity>>();
 
+    [Parameter]
+    public int RoleId { get; set; }
+
+    [NotNull]
+    private RoleEntity? RoleEntity{ get; set; }
+
     protected override async Task OnInitializedAsync()
     {
+        RoleEntity = await RoleEntity.Where(x => x.Id == RoleId).IncludeMany(x => x.Menus).FirstAsync();
+
         await base.OnInitializedAsync();
         await RefreshItems();
     }

@@ -12,8 +12,8 @@
 
         </TableColumn>
     </TableColumns>
-    <BeforeRowButtonTemplate>
-        <TableCellButton Text="编辑菜单" OnClick="EditMenu">
+    <BeforeRowButtonTemplate Context="value">
+        <TableCellButton Text="编辑菜单" OnClick="()=>EditMenu(value.Id)">
 
         </TableCellButton>
     </BeforeRowButtonTemplate>
@@ -24,11 +24,16 @@
 
 @code {
 
-    private void EditMenu()
+    private void EditMenu(int roleId)
     {
         _dialogService.Show(new DialogOption()
         {
-            Component= BootstrapDynamicComponent.CreateComponent<EditMenu>()
+            Component= BootstrapDynamicComponent.CreateComponent<EditMenu>(new Dictionary<string, object?>()
+            {
+                [nameof(Components.EditMenu.RoleId)]= roleId
+            
+            })
+
         });
 
     }
