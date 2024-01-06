@@ -18,13 +18,18 @@
     {
         Items.Clear();
         var menus = await MenuEntity.Select.ToListAsync();
-        Items.AddRange(CascadingMenu(menus, 0));
+        Items.AddRange(CascadingMenu(menus, null));
     }
 
 
-    private List<TreeViewItem<MenuEntity>> CascadingMenu(List<MenuEntity> menuEntities, int parentId) => menuEntities
-    .Where(x => x.ParentId == parentId)
-    .Select(x => new TreeViewItem<MenuEntity>(x) { Text = x.MenuName, IsExpand = true, Icon = x.Icon, Items = CascadingMenu(menuEntities, x.Id) })
+    private List<TreeViewItem<MenuEntity>> CascadingMenu(List<MenuEntity> menuEntities, TreeViewItem<MenuEntity> parent) => menuEntities
+    .Where(x => x.ParentId == (parent?.Value.Id ?? 0))
+    .Select(x =>
+    {
+        var treeViewItem = new TreeViewItem<MenuEntity>(x) { Text = x.MenuName, Icon = x.Icon, IsExpand = true, Parent = parent };
+        treeViewItem.Items = CascadingMenu(menuEntities, treeViewItem);
+        return treeViewItem;
+    })
     .ToList();
 
 
