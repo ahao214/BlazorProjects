@@ -3,10 +3,10 @@
 @inject DialogService _dialogService
 
 
-@attribute [TabItemOption(Text ="角色管理")]
+@attribute [TabItemOption(Text = "角色管理")]
 
-<AdminTable TItem="RoleEntity" 
-    ShowExtendEditButtonCallback="@(entity=>entity.RoleName!="管理员")" ShowExtendDeleteButtonCallback="@(entity=>entity.RoleName!="管理员")">
+<AdminTable TItem="RoleEntity"
+            ShowExtendEditButtonCallback="@(entity=>entity.RoleName!="管理员")" ShowExtendDeleteButtonCallback="@(entity=>entity.RoleName!="管理员")">
     <TableColumns>
         <TableColumn @bind-Field="@context.RoleName">
 
@@ -27,13 +27,12 @@
     private void EditMenu(int roleId)
     {
         _dialogService.ShowModal<EditMenu>(new ResultDialogOption()
-        {
-            Component= BootstrapDynamicComponent.CreateComponent<EditMenu>(new Dictionary<string, object?>()
             {
-                [nameof(Components.EditMenu.RoleId)]= roleId            
-            })
-            
-        });
 
+                ComponentParameters = new Dictionary<string, object>()
+                {
+                    [nameof(Components.EditMenu.RoleId)] = roleId,
+                }
+            });
     }
 }

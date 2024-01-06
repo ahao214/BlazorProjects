@@ -58,6 +58,7 @@ else
     })
     .ToList();
 
+
     public async Task OnClose(DialogResult result)
     {
         if(result== DialogResult.Yes)
@@ -66,10 +67,14 @@ else
             GetMenus(Items.Where(x => x.CheckedState != CheckboxState.UnChecked), menus);
             RoleEntity!.Menus = menus;
             await RoleEntity.SaveManyAsync(nameof(RoleEntity.Menus));
-
         }
     }
 
+    /// <summary>
+    /// 递归获取菜单
+    /// </summary>
+    /// <param name="treeViewItems"></param>
+    /// <param name="menuEntities"></param>
     private void GetMenus(IEnumerable<TreeViewItem<MenuEntity>> treeViewItems,List<MenuEntity> menuEntities)
     {
         menuEntities.AddRange(treeViewItems.Select(x => x.Value));
