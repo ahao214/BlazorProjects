@@ -51,7 +51,7 @@ namespace BlazorEcommerce.Client.Services.CartServices
         }
 
         /// <summary>
-        /// 获取购物车中的商品信息
+        /// 获取购物车中的商品的详细信息
         /// </summary>
         /// <returns></returns>
         public async Task<List<CartProductResponse>> GetCartProducts()
