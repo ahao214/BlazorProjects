@@ -24,7 +24,7 @@
         /// </summary>
         /// <param name="searchText"></param>
         /// <returns></returns>
-        Task<ServiceResponse<List<Product>>> SearchProducts(string searchText);
+        Task<ServiceResponse<ProductSearchResult>> SearchProducts(string searchText,int page);
 
         Task<ServiceResponse<List<string>>> GetProductSearchSuggestions(string searchText);
 

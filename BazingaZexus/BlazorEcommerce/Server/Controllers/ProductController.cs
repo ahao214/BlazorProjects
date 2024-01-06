@@ -37,7 +37,7 @@ namespace BlazorEcommerce.Server.Controllers
         [HttpGet("category/{categoryUrl}")]
         public async Task<ActionResult<ServiceResponse<Product>>> GetProductByCategory(string categoryUrl)
         {
-            var result = await _productService.GetProductsByCategory(categoryUrl); 
+            var result = await _productService.GetProductsByCategory(categoryUrl);
             return Ok(result);
         }
 
@@ -47,10 +47,10 @@ namespace BlazorEcommerce.Server.Controllers
         /// </summary>
         /// <param name="searchText"></param>
         /// <returns></returns>
-        [HttpGet("search/{searchText}")]
-        public async Task<ActionResult<ServiceResponse<Product>>> SearchProducts(string searchText)
+        [HttpGet("search/{searchText}/{page}")]
+        public async Task<ActionResult<ServiceResponse<ProductSearchResult>>> SearchProducts(string searchText, int page = 1)
         {
-            var result = await _productService.SearchProducts(searchText);
+            var result = await _productService.SearchProducts(searchText, page);
             return Ok(result);
         }
 
