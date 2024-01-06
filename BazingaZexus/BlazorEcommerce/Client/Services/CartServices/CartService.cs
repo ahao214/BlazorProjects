@@ -63,6 +63,29 @@ namespace BlazorEcommerce.Client.Services.CartServices
             return cartProducts.Data;
         }
 
+        /// <summary>
+        /// 从购物车中移除商品
+        /// </summary>
+        /// <param name="productId">商品ID</param>
+        /// <param name="productTypeId">商品类别ID</param>
+        /// <returns></returns>
+        public async Task RemoveProductFromCart(int productId, int productTypeId)
+        {
+            var cart = await _localStorage.GetItemAsync<List<CartItem>>("cart");
+            if (cart == null)
+            {
+                return;
+            }
+            var cartItem = cart.Find(x => x.ProductId == productId && x.ProductTypeId == productTypeId);
+            if (cartItem != null)
+            {
+                cart.Remove(cartItem);
+                await _localStorage.SetItemAsync("cart", cart);
+                OnChange.Invoke();
+            }
+
+
+        }
 
     }
 }
