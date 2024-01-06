@@ -31,7 +31,7 @@ namespace BlazorEcommerce.Client.Services.CartServices
             }
             cart.Add(cartItem);
             await _localStorage.SetItemAsync("cart", cart);
-
+            OnChange.Invoke();
         }
 
         /// <summary>
