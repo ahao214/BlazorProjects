@@ -26,14 +26,13 @@
 
     private void EditMenu(int roleId)
     {
-        _dialogService.Show(new DialogOption()
+        _dialogService.ShowModal<EditMenu>(new ResultDialogOption()
         {
             Component= BootstrapDynamicComponent.CreateComponent<EditMenu>(new Dictionary<string, object?>()
             {
-                [nameof(Components.EditMenu.RoleId)]= roleId
-            
+                [nameof(Components.EditMenu.RoleId)]= roleId            
             })
-
+            
         });
 
     }

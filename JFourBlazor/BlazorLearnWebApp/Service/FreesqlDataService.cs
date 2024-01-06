@@ -41,10 +41,15 @@ namespace BlazorLearnWebApp.Service
         /// <exception cref="NotImplementedException"></exception>
         public override Task<QueryData<TModel>> QueryAsync(QueryPageOptions option)
         {
-            var Items = _db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
+            var select = _db.Select<TModel>().WhereDynamicFilter(option.ToDynamicFilter())
                 .OrderByPropertyNameIf(option.SortOrder != SortOrder.Unset, option.SortName, option.SortOrder == SortOrder.Asc)
-                .Count(out var count)
-                .Page(option.PageIndex, option.PageItems).ToList();
+                .Count(out var count);
+            if(option.IsPage)
+            {
+                select = select.Page(option.PageIndex, option.PageItems);
+            }
+            var Items = select.ToList();
+                
 
             var res = new QueryData<TModel>()
             {
