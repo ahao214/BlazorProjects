@@ -37,7 +37,7 @@ namespace BlazorEcommerce.Client.Services.CartServices
         }
 
         /// <summary>
-        /// 获取购物车中的产品
+        /// 获取购物车的信息
         /// </summary>
         /// <returns></returns>
         public async Task<List<CartItem>> GetCartItems()
@@ -57,10 +57,10 @@ namespace BlazorEcommerce.Client.Services.CartServices
         public async Task<List<CartProductResponse>> GetCartProducts()
         {
             var cartItems = await _localStorage.GetItemAsync<List<CartItem>>("cart");
-            var response = await _http.PostAsJsonAsync("/api/cart/products", cartItems);
-            var cartProducts = await response.Content.ReadFromJsonAsync<List<CartProductResponse>>();
+            var response = await _http.PostAsJsonAsync("api/cart/products", cartItems);
+            var cartProducts = await response.Content.ReadFromJsonAsync<ServiceResponse<List<CartProductResponse>>>();
 
-            return cartProducts;
+            return cartProducts.Data;
         }
 
 
