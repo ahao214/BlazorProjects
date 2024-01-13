@@ -12,6 +12,9 @@
         <TableColumn @bind-Field="@context.UserName" IsReadonlyWhenEdit="true"></TableColumn>
         <TableColumn @bind-Field="@context.NickName"></TableColumn>
     </TableColumns>
+    <RowButtonTemplate Context="value">
+        <TableCellPopconfirmButton Text="重置密码" Content=@($"你是否要重置{value.UserName}的密码吗?") OnConfirm="()=>ResetPassword(value)"></TableCellPopconfirmButton>
+    </RowButtonTemplate>
 </AdminTable>
 
 @code {
@@ -33,5 +36,22 @@
                 });
         }
         return res;
+    }
+
+    /// <summary>
+    /// 重置密码
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns></returns>
+    private async Task ResetPassword(UserEntity user)
+    {
+        user.Password = user.UserName;
+        await user.SaveAsync();
+        await _swalService.Show(new SwalOption()
+            {
+                Category = SwalCategory.Success,
+                Title = "重置密码成功",
+                Content = $"你的密码是{user.UserName}"
+            });
     }
 }

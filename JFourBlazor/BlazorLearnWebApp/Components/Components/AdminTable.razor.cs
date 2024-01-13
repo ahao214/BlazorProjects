@@ -32,7 +32,8 @@ namespace BlazorLearnWebApp.Components.Components
         [Parameter]
         public RenderFragment<TItem>? BeforeRowButtonTemplate { get; set; }
 
-
+        [Parameter]
+        public RenderFragment<TItem>? RowButtonTemplate { get; set; }
 
 
 

@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace BlazorEcommerce.Shared
 {
+    /// <summary>
+    /// 用户模型
+    /// </summary>
     public class User
     {
         public int Id { get; set; }
