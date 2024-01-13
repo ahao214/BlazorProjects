@@ -12,6 +12,8 @@ IFreeSql fsql = new FreeSql.FreeSqlBuilder()
 
 BaseEntity.Initialization(fsql, null);
 
+
+builder.Services.AddControllers();
 // Add services to the container.
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
@@ -35,6 +37,7 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+app.MapDefaultControllerRoute();
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
