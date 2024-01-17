@@ -55,6 +55,16 @@ namespace BlazorEcommerce.Server.Services.AuthServices
         }
 
 
+        public async Task<ServiceResponse<string>> Login(string email, string password)
+        {
+            var response = new ServiceResponse<string>
+            {
+                Data = "token"
+            };
+
+            return response;
+        }
+
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
