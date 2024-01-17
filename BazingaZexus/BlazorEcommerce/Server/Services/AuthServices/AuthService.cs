@@ -1,4 +1,6 @@
 ﻿
+using System.Security.Cryptography;
+
 namespace BlazorEcommerce.Server.Services.AuthServices
 {
     public class AuthService : IAuthService
@@ -10,9 +12,31 @@ namespace BlazorEcommerce.Server.Services.AuthServices
             _context = context;
         }
 
-        public Task<ServiceResponse<int>> Register(User user, string password)
+        /// <summary>
+        /// 注册
+        /// </summary>
+        /// <param name="user"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
+        public async Task<ServiceResponse<int>> Register(User user, string password)
         {
-            throw new NotImplementedException();
+            if (await UserExists(user.Email))
+            {
+                return new ServiceResponse<int>
+                {
+                    Success = false,
+                    Message = "User already exists"
+                };
+            }
+
+            CreatePasswordHash(password, out byte[] passwordHash,out byte[] passwordSalt);
+
+            //user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            _context .Users.Add(user);
+            await _context .SaveChangesAsync();
+
+            return new ServiceResponse<int> { Data = user.Id };
         }
 
         /// <summary>
@@ -29,5 +53,15 @@ namespace BlazorEcommerce.Server.Services.AuthServices
             }
             return false;
         }
+  
+    
+    private void CreatePasswordHash(string password,out byte[] passwordHash, out byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
+        }       
     }
 }

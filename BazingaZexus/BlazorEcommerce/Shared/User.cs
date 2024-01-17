@@ -17,7 +17,7 @@ namespace BlazorEcommerce.Shared
 
         public byte[] Password { get; set; }
         public byte[] PasswordSalt { get; set; }
-
+        //public byte[] PasswordHash {  get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
 
 
