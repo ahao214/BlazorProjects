@@ -9,7 +9,7 @@ namespace BlazorLearnWebApp.Vo
         [Required(ErrorMessage = "密码不能为空")]
         public string? Password { get; set; }
 
-        public bool? IsKeep { get; set; }
+        public bool IsKeep { get; set; }
 
     }
 }

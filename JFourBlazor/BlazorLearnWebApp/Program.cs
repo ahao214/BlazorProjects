@@ -2,6 +2,7 @@ using BlazorLearnWebApp.Components;
 using BlazorLearnWebApp.Service;
 using FreeSql;
 using BootstrapBlazor.Components;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +21,10 @@ builder.Services.AddRazorComponents()
 builder.Services.AddBootstrapBlazor();
 builder.Services.AddScoped(typeof(IDataService<>), typeof(FreesqlDataService<>));
 builder.Services.AddSingleton(typeof(ILookupService), typeof(LookupService));
-
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(config =>
+{
+    config.LoginPath = "/Login";
+});
 
 
 var app = builder.Build();
@@ -37,7 +41,13 @@ app.UseHttpsRedirection();
 
 app.UseStaticFiles();
 app.UseAntiforgery();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 app.MapDefaultControllerRoute();
+
+
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
