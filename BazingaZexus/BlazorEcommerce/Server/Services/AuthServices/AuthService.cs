@@ -1,4 +1,5 @@
 ﻿
+using Microsoft.AspNetCore.Components.Web;
 using System.Security.Cryptography;
 
 namespace BlazorEcommerce.Server.Services.AuthServices
@@ -36,7 +37,7 @@ namespace BlazorEcommerce.Server.Services.AuthServices
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<int> { Data = user.Id,Message ="Registration successful!" };
+            return new ServiceResponse<int> { Data = user.Id, Message = "Registration successful!" };
         }
 
         /// <summary>
@@ -54,13 +55,31 @@ namespace BlazorEcommerce.Server.Services.AuthServices
             return false;
         }
 
-
+        /// <summary>
+        /// 用户登录
+        /// </summary>
+        /// <param name="email"></param>
+        /// <param name="password"></param>
+        /// <returns></returns>
         public async Task<ServiceResponse<string>> Login(string email, string password)
         {
-            var response = new ServiceResponse<string>
+            var response = new ServiceResponse<string>();
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.ToLower().Equals(email.ToLower()));
+            if (user == null)
             {
-                Data = "token"
-            };
+                response.Success = false;
+                response.Message = "User not found";
+            }
+            else if (!VerifyPasswordHash(password, user.Password, user.PasswordSalt))
+            {
+                response.Success = false;
+                response.Message = "Wrong password";
+            }
+            else
+            {
+                response.Data = "token";
+            }
+
 
             return response;
         }
@@ -72,6 +91,17 @@ namespace BlazorEcommerce.Server.Services.AuthServices
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+            using (var hmac = new HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+
+                return computedHash.SequenceEqual(passwordHash);
+            }
+
         }
     }
 }
