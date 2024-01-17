@@ -36,7 +36,7 @@ namespace BlazorEcommerce.Server.Services.AuthServices
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
 
-            return new ServiceResponse<int> { Data = user.Id };
+            return new ServiceResponse<int> { Data = user.Id,Message ="Registration successful!" };
         }
 
         /// <summary>
