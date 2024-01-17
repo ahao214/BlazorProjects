@@ -29,12 +29,12 @@ namespace BlazorEcommerce.Server.Services.AuthServices
                 };
             }
 
-            CreatePasswordHash(password, out byte[] passwordHash,out byte[] passwordSalt);
+            CreatePasswordHash(password, out byte[] passwordHash, out byte[] passwordSalt);
 
-            //user.PasswordHash = passwordHash;
+            user.Password = passwordHash;
             user.PasswordSalt = passwordSalt;
-            _context .Users.Add(user);
-            await _context .SaveChangesAsync();
+            _context.Users.Add(user);
+            await _context.SaveChangesAsync();
 
             return new ServiceResponse<int> { Data = user.Id };
         }
@@ -53,15 +53,15 @@ namespace BlazorEcommerce.Server.Services.AuthServices
             }
             return false;
         }
-  
-    
-    private void CreatePasswordHash(string password,out byte[] passwordHash, out byte[] passwordSalt)
+
+
+        private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
             using (var hmac = new HMACSHA512())
             {
                 passwordSalt = hmac.Key;
                 passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
             }
-        }       
+        }
     }
 }
