@@ -1,10 +1,12 @@
 ﻿@page "/Login"
 @using BlazorLearnWebApp.Components.Layout
 @using BlazorLearnWebApp.Vo
+
 @inject AjaxService AjaxService
 @layout LoginLayout
 @inject SwalService SwalService
-
+@inject AuthenticationStateProvider _authenticationStateProvider
+@inject NavigationManager _navigationManager
 
 <div class="login-item login-item-floating">
     <div class="text-center">
@@ -43,6 +45,18 @@
                     Title = "登录失败"
                 });
         }
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+        var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+        if (user?.Identity?.IsAuthenticated == true)
+        {
+            _navigationManager.NavigateTo("/");
+        }
+
     }
 
 

@@ -25,6 +25,9 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
 {
     config.LoginPath = "/Login";
 });
+builder.Services.AddCascadingAuthenticationState();
+
+
 
 
 var app = builder.Build();

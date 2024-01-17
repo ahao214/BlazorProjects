@@ -1,5 +1,6 @@
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using System.Security.Claims;
 
 namespace BlazorLearnWebApp.Components.Layout
 {
@@ -52,6 +53,8 @@ namespace BlazorLearnWebApp.Components.Layout
         [Parameter]
         public bool UseTabSet { get; set; } = true;
 
+        private ClaimsPrincipal? _user;
+
         /// <summary>
         /// OnInitializedAsync 方法
         /// </summary>
@@ -60,6 +63,8 @@ namespace BlazorLearnWebApp.Components.Layout
         {
             await base.OnInitializedAsync();
 
+
+            _user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;    
             // 模拟异步获取菜单数据
             await Task.Delay(10);
 
