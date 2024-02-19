@@ -4,7 +4,7 @@
 
 
 @attribute [TabItemOption(Text = "菜单管理")]
-<AdminTable TItem="MenuEntity" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync" IsTree="true" TreeNodeConverter="TreeNodeConverter">
+<AdminTable TItem="MenuEntity" OnSaveAsync="OnSaveAsync" OnDeleteAsync="OnDeleteAsync" IsTree="true" TreeNodeConverter="TreeNodeConverter" IsPagination="false">
     <TableColumns>
         <TableColumn @bind-Field="@context.MenuName"></TableColumn>
         <TableColumn @bind-Field="@context.Icon"></TableColumn>

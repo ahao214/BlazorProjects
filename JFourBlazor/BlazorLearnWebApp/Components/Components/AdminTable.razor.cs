@@ -21,7 +21,7 @@ namespace BlazorLearnWebApp.Components.Components
         public bool IsTree { get; set; }
 
         [Parameter]
-        public Func <IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
+        public Func<IEnumerable<TItem>, Task<IEnumerable<TableTreeNode<TItem>>>>? TreeNodeConverter { get; set; }
 
         [Parameter]
         public Func<TItem, bool>? ShowExtendEditButtonCallback { get; set; }
@@ -34,7 +34,8 @@ namespace BlazorLearnWebApp.Components.Components
 
         [Parameter]
         public RenderFragment<TItem>? RowButtonTemplate { get; set; }
-
+        [Parameter]
+        public bool IsPagination { get; set; } = true;
 
 
 
