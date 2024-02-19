@@ -1,4 +1,7 @@
 ﻿@page "/login"
+@inject IAuthService _authService
+@inject ILocalStorageService _localStorage
+@inject NavigationManager _navigationManager
 
 
 <PageTitle>Login</PageTitle>
@@ -19,11 +22,17 @@
 
     <button type="submit" class="btn btn-primary">Login</button>
 
-
 </EditForm>
+
+<div class="text-danger">
+    <span>@errorMessage</span>
+</div>
+
+
 
 @code {
     private UserLogin user = new UserLogin();
+    private string errorMessage = string.Empty;
 
     private async Task HandleLogin()
     {
