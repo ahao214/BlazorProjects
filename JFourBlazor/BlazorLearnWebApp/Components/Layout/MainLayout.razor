@@ -8,7 +8,8 @@
 <CascadingValue Value="this" IsFixed="true">
     <Layout SideWidth="0" IsPage="true" IsFullSide="@IsFullSide" IsFixedHeader="@IsFixedHeader" IsFixedFooter="@IsFixedFooter"
             ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" Menus="@Menus"
-            UseTabSet="@UseTabSet" TabDefaultUrl="layout-page" AdditionalAssemblies="new[] { GetType().Assembly }" class="@LayoutClassString" OnAuthorizing="OnAuthorizing" NotAuthorizeUrl="/Login">
+            UseTabSet="@UseTabSet" TabDefaultUrl="layout-page" AdditionalAssemblies="new[] { GetType().Assembly }" class="@LayoutClassString">
+            @* OnAuthorizing="OnAuthorizing" NotAuthorizeUrl="/Login"> *@
             <NotAuthorized>
                 @if(_user?.Identity?.IsAuthenticated == true)
                 {
