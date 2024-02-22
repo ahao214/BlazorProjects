@@ -86,16 +86,6 @@ namespace BlazorLearnWebApp.Components.Layout
 
             Menus = CascadingMenu(role.Menus, 0);
 
-            // 模拟异步获取菜单数据
-            //await Task.Delay(10);
-
-            //Menus = new List<MenuItem>
-            //{
-            //    new() { Text = "首页", Icon = "fa-fw fa-solid fa-house", Url = "/" },
-            //    new() { Text = "用户管理", Icon = "fa-fw fa-solid fa-desktop", Url = "user" },
-            //     new() { Text = "角色管理", Icon = "fa-fw fa-solid fa-desktop", Url = "role" },
-            //    new() { Text = "菜单管理", Icon = "fa-fw fa-solid fa-laptop", Url = "menu" }
-            //};
         }
 
         private List<MenuItem> CascadingMenu(List<MenuEntity> menuEntities, int parentId) => menuEntities
