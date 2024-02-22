@@ -102,6 +102,11 @@ namespace BlazorLearnWebApp.Components.Layout
             IsOpen = !IsOpen;
         }
 
+        private Task<bool> OnAuthorizing(string url)
+        {
+            
+            return Task.FromResult(false);
+        }
 
     }
 }
