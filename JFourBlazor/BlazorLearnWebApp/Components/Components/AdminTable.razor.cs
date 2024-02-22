@@ -36,6 +36,8 @@ namespace BlazorLearnWebApp.Components.Components
         public RenderFragment<TItem>? RowButtonTemplate { get; set; }
         [Parameter]
         public bool IsPagination { get; set; } = true;
+        [Parameter]
+        public bool IsMultipleSelect { get; set; } = false;
 
 
 
