@@ -1,7 +1,9 @@
 ﻿@using Console = System.Console
+@using System.Security.Claims
 @inject NavigationManager NavigationManager
 @inject AuthenticationStateProvider _authenticationStateProvider
-@using BlazorLearnWebApp.Entity;
+@using BlazorLearnWebApp.Entity
+
 
 <Router AppAssembly="@typeof(Program).Assembly" OnNavigateAsync="OnNavigateAsync">
     <Found Context="routeData">
@@ -29,18 +31,18 @@
         }
         else
         {
-            var  user = (_authenticationStateProvider.GetAuthenticationState()).User;
-            if(user == null)
-            {
-                NavigationManager.NavigateTo("/Login");
-                return;
-            }  
+            // var user = (await _authenticationStateProvider.GetAuthenticationStateAsync()).User;
+            // if(user == null)
+            // {
+            //     NavigationManager.NavigateTo("/Login");
+            //     return;
+            // }  
 
-            if(user.Identity.IsAuthenticated == false)
-            {
-                NavigationManager.NavigateTo("/Login");
-                return;
-            }
+            // if(user.Identity.IsAuthenticated == false)
+            // {
+            //     NavigationManager.NavigateTo("/Login");
+            //     return;
+            // }
             
             var roleId = user.FindFirst(ClaimTypes.Role)?.Value;
             if (roleId == null)
