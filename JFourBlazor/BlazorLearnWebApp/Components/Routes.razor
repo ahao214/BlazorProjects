@@ -44,26 +44,26 @@
             //     return;
             // }
             
-            var roleId = user.FindFirst(ClaimTypes.Role)?.Value;
-            if (roleId == null)
-            {
-                NavigationManager.NavigateTo("/NotAuth");
-                return;
-            }
+            // var roleId = user.FindFirst(ClaimTypes.Role)?.Value;
+            // if (roleId == null)
+            // {
+            //     NavigationManager.NavigateTo("/NotAuth");
+            //     return;
+            // }
 
-            var role = RoleEntity.Where(x => x.Id == int.Parse(roleId)).IncludeMany(x => x.Menus).First();
-            if (role == null || role.Menus == null)
-            {
-                NavigationManager.NavigateTo("/NotAuth");
-                return;
-            }
+            // var role = RoleEntity.Where(x => x.Id == int.Parse(roleId)).IncludeMany(x => x.Menus).First();
+            // if (role == null || role.Menus == null)
+            // {
+            //     NavigationManager.NavigateTo("/NotAuth");
+            //     return;
+            // }
 
-            var authUrl = role.Menus.Select(x=>x.Url!).ToList();
-            if(authUrl.Any(x=>x == path))
-            {
-                return;
-            }
-            NavigationManager.NavigateTo("/NotAuth");
+            // var authUrl = role.Menus.Select(x=>x.Url!).ToList();
+            // if(authUrl.Any(x=>x == path))
+            // {
+            //     return;
+            // }
+            //NavigationManager.NavigateTo("/NotAuth");
         }
     }
 }
