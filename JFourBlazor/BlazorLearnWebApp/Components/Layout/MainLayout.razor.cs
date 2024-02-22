@@ -1,6 +1,7 @@
 using BlazorLearnWebApp.Entity;
 using BootstrapBlazor.Components;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Mvc.TagHelpers.Cache;
 using System.Security.Claims;
 
 namespace BlazorLearnWebApp.Components.Layout
@@ -56,6 +57,8 @@ namespace BlazorLearnWebApp.Components.Layout
 
         private ClaimsPrincipal? _user;
 
+        private List<string> _authUrl = new List<string>();
+
         /// <summary>
         /// OnInitializedAsync ·½·¨
         /// </summary>
@@ -84,8 +87,9 @@ namespace BlazorLearnWebApp.Components.Layout
                 return;
             }
 
-            Menus = CascadingMenu(role.Menus, 0);
+            _authUrl = role.Menus.Select(x => x.Url!).ToList();
 
+            Menus = CascadingMenu(role.Menus, 0);
         }
 
         private List<MenuItem> CascadingMenu(List<MenuEntity> menuEntities, int parentId) => menuEntities
@@ -104,7 +108,11 @@ namespace BlazorLearnWebApp.Components.Layout
 
         private Task<bool> OnAuthorizing(string url)
         {
-            
+            var localPath = new Uri(url).LocalPath;
+            if (_authUrl.Any(x => x == localPath))
+            {
+                return Task.FromResult(true);
+            }
             return Task.FromResult(false);
         }
 
