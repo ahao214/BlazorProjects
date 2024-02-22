@@ -10,8 +10,15 @@
             ShowFooter="@ShowFooter" ShowGotoTop="true" ShowCollapseBar="true" Menus="@Menus"
             UseTabSet="@UseTabSet" TabDefaultUrl="layout-page" AdditionalAssemblies="new[] { GetType().Assembly }" class="@LayoutClassString" OnAuthorizing="OnAuthorizing" NotAuthorizeUrl="/Login">
             <NotAuthorized>
-                没有权限
-                </NotAuthorized>
+                @if(_user?.Identity?.IsAuthenticated == true)
+                {
+                    <Redirect Url="/NotAuth"></Redirect>
+                }
+                else
+                {
+                    <Redirect Url="/Login"></Redirect>
+                }                
+            </NotAuthorized>
         <Header>
             <span class="ms-3 flex-fill">Bootstrap of Blazor</span>
             <Widget></Widget>
