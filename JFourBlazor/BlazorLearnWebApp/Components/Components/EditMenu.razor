@@ -68,8 +68,7 @@ else
             var menus = new List<MenuEntity>();
             GetMenus(Items.Where(x => x.CheckedState != CheckboxState.UnChecked), menus);
             RoleEntity!.Menus = menus;
-            await RoleEntity.SaveManyAsync(nameof(RoleEntity.Menus));
-            await RoleEntity.SaveAsync();
+            await RoleEntity.SaveManyAsync(nameof(RoleEntity.Menus));            
         }
     }
 

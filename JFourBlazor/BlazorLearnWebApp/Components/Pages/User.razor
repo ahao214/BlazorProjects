@@ -4,6 +4,7 @@
 
 @inject IDataService<UserEntity> _dataService
 @inject SwalService _swalService
+@inject DownloadService _downloadService
 
 
 @attribute [TabItemOption(Text = "用户管理", Icon = "fa-fw fa-solid fa-desktop")]
@@ -13,6 +14,11 @@
         <TableColumn @bind-Field="@context.NickName"></TableColumn>
         <TableColumn @bind-Field="@context.RoleId" Text="角色" LookupServiceKey="role"></TableColumn>
     </TableColumns>
+
+    <TableToolbarTemplate>
+           <TableToolbarButton Text="下载模板" OnClick="DownloadTemplate"></TableToolbarButton>
+    </TableToolbarTemplate>
+
     <RowButtonTemplate Context="value">
         <TableCellPopconfirmButton Text="重置密码" Content=@($"你是否要重置{value.UserName}的密码吗?") OnConfirm="()=>ResetPassword(value)"></TableCellPopconfirmButton>
     </RowButtonTemplate>
@@ -66,5 +72,10 @@
                 Title = "重置密码成功",
                 Content = $"你的密码是{user.UserName}"
             });
+    }
+
+    private void DownloadTemplate()
+    {
+        _downloadService.DownloadFileAsync("用户模板.xlsx","./user_template.xlsx");
     }
 }

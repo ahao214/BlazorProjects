@@ -33,6 +33,9 @@ namespace BlazorLearnWebApp.Components.Components
         public RenderFragment<TItem>? BeforeRowButtonTemplate { get; set; }
 
         [Parameter]
+        public RenderFragment? TableToolbarTemplate { get; set; }
+
+        [Parameter]
         public RenderFragment<TItem>? RowButtonTemplate { get; set; }
         [Parameter]
         public bool IsPagination { get; set; } = true;
