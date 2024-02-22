@@ -13,4 +13,10 @@
     <PackageReference Include="FreeSql.Provider.Sqlite" Version="3.2.808" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Asset\user_template.xlsx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
