@@ -1,6 +1,67 @@
-﻿<Router AppAssembly="@typeof(Program).Assembly">
+﻿@using Console = System.Console
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider _authenticationStateProvider
+@using BlazorLearnWebApp.Entity;
+
+<Router AppAssembly="@typeof(Program).Assembly" OnNavigateAsync="OnNavigateAsync">
     <Found Context="routeData">
         <RouteView RouteData="@routeData" DefaultLayout="@typeof(Layout.MainLayout)" />
         <FocusOnNavigate RouteData="@routeData" Selector="h1" />
     </Found>
 </Router>
+
+
+@code{
+
+    private List<string> writeUrl= new List<string>()
+    {
+        "/Login",
+        "/NotAuth"
+    };
+
+    private void OnNavigateAsync(NavigationContext context)
+    {
+        var path = NavigationManager.ToAbsoluteUri(context.Path).LocalPath;
+        Console.WriteLine(NavigationManager.ToAbsoluteUri(context.Path));
+        if(writeUrl.Any(x=>x== path))
+        {
+            NavigationManager.NavigateTo("/NotAuth",true);
+        }
+        else
+        {
+            var  user = (_authenticationStateProvider.GetAuthenticationState()).User;
+            if(user == null)
+            {
+                NavigationManager.NavigateTo("/Login");
+                return;
+            }  
+
+            if(user.Identity.IsAuthenticated == false)
+            {
+                NavigationManager.NavigateTo("/Login");
+                return;
+            }
+            
+            var roleId = user.FindFirst(ClaimTypes.Role)?.Value;
+            if (roleId == null)
+            {
+                NavigationManager.NavigateTo("/NotAuth");
+                return;
+            }
+
+            var role = RoleEntity.Where(x => x.Id == int.Parse(roleId)).IncludeMany(x => x.Menus).First();
+            if (role == null || role.Menus == null)
+            {
+                NavigationManager.NavigateTo("/NotAuth");
+                return;
+            }
+
+            var authUrl = role.Menus.Select(x=>x.Url!).ToList();
+            if(authUrl.Any(x=>x == path))
+            {
+                return;
+            }
+            NavigationManager.NavigateTo("/NotAuth");
+        }
+    }
+}
