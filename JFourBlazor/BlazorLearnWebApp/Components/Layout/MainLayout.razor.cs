@@ -81,7 +81,7 @@ namespace BlazorLearnWebApp.Components.Layout
                 return;
             }
 
-            var role = await RoleEntity.Where(x => x.Id == int.Parse(roleId)).IncludeMany(x => x.Menus).FirstAsync();
+            var role = RoleEntity.Where(x => x.Id == int.Parse(roleId)).IncludeMany(x => x.Menus).First();
             if (role == null || role.Menus == null)
             {
                 return;
@@ -109,6 +109,7 @@ namespace BlazorLearnWebApp.Components.Layout
         private Task<bool> OnAuthorizing(string url)
         {
             var localPath = new Uri(url).LocalPath;
+            System.Console.WriteLine(localPath);
             if (_authUrl.Any(x => x == localPath))
             {
                 return Task.FromResult(true);

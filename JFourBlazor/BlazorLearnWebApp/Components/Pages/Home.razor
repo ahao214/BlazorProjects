@@ -1,4 +1,4 @@
-﻿@page "/{id?}"
+﻿@page "/{Id?}"
 @using Microsoft.AspNetCore.Authorization;
 @using Microsoft.AspNetCore.Components.Authorization;
 @using System.Security.Claims;
@@ -17,6 +17,7 @@
 
     [CascadingParameter]
     public Task<AuthenticationState>? AuthenticationStateTask{ get; set; }
+
     [Parameter]
     public string? Id {get;set;}
 
