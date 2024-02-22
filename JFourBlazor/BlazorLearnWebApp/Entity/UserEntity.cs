@@ -1,16 +1,20 @@
-﻿using FreeSql;
+﻿using BlazorLearnWebApp.Attributes;
+using FreeSql;
 using FreeSql.DataAnnotations;
 using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace BlazorLearnWebApp.Entity
 {
     [Description("用户信息表")]
-    public class UserEntity:BaseEntity<UserEntity,int>
+    public class UserEntity : BaseEntity<UserEntity, int>
     {
         /// <summary>
         /// 用户名
         /// </summary>
         [Description("用户名")]
+        [Required(ErrorMessage = "用户名不能为空")]
+        [User(ErrorMessage = "用户名不能重复")]
         public string? UserName { get; set; }
 
         /// <summary>
@@ -34,6 +38,6 @@ namespace BlazorLearnWebApp.Entity
         public int RoleId { get; set; }
 
         [Navigate(nameof(RoleId))]
-        public RoleEntity? Role { get; set; }   
+        public RoleEntity? Role { get; set; }
     }
 }
